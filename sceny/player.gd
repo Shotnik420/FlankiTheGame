@@ -15,7 +15,7 @@ var direction : Vector3 = Vector3.ZERO
 @onready var camera = $Head/Camera3D
 
 
-
+#Nowy komentarz
 #Uruchamia się raz gdy wszystkie zmienne się załadują
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
