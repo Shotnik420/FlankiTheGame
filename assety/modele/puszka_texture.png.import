@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bibbo12ju6ixg"
-path.s3tc="res://.godot/imported/texture_02.png-736ddbfc8d0eb3aaa5a99ac7a91723e2.s3tc.ctex"
+uid="uid://cbbvuvr2ivpg6"
+path.s3tc="res://.godot/imported/puszka_texture.png-f37fe91880cf3c03ee6400e2e81c0722.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "771ee0fcbac6b2cbfcfeba133a82a69a"
+}
 
 [deps]
 
-source_file="res://assety/tekstury/dev/Dark/texture_02.png"
-dest_files=["res://.godot/imported/texture_02.png-736ddbfc8d0eb3aaa5a99ac7a91723e2.s3tc.ctex"]
+source_file="res://assety/modele/puszka_texture.png"
+dest_files=["res://.godot/imported/puszka_texture.png-f37fe91880cf3c03ee6400e2e81c0722.s3tc.ctex"]
 
 [params]
 
