@@ -14,11 +14,12 @@ var direction : Vector3 = Vector3.ZERO
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 
-
+signal cam_ready
 #Nowy komentarz
 #Uruchamia się raz gdy wszystkie zmienne się załadują
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	cam_ready.emit(self)
 
 #Uruchamia się 60 razy na sekundę
 func _physics_process(delta: float) -> void:
@@ -56,3 +57,7 @@ func _input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		#ograniczenie by nie można było patrzeć za plecy.
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+
+
+func sensitivity_change(value) -> void:
+	SENSITIVITY=value
