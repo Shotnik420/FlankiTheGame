@@ -1,0 +1,181 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8jppjhd4k7b6"]
+
+[ext_resource type="Script" uid="uid://crn8nvdes10gl" path="res://sceny/pause_menu.gd" id="1_lonqj"]
+
+[node name="Pause_menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+script = ExtResource("1_lonqj")
+
+[node name="buttons" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="resume" type="Button" parent="buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -165.0
+offset_right = 128.0
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "resume"
+
+[node name="options" type="Button" parent="buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -20.0
+offset_right = 128.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "options"
+
+[node name="back" type="Button" parent="buttons"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 104.0
+offset_right = 128.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "back"
+
+[node name="options" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="FOV" type="Control" parent="options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FOV" type="HSlider" parent="options/FOV"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -8.0
+offset_right = 101.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 30.0
+max_value = 120.0
+value = 75.0
+
+[node name="FOV2" type="Label" parent="options/FOV"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -182.0
+offset_top = -21.5
+offset_right = -107.21741
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "FOV"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SENSITIVITY" type="Control" parent="options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 22.0
+offset_right = 150.0
+offset_bottom = 222.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SENSITIVITY" type="HSlider" parent="options/SENSITIVITY"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -8.0
+offset_right = 101.5
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 1.0
+max_value = 30.0
+value = 1.0
+
+[node name="SENSITIVITY2" type="Label" parent="options/SENSITIVITY"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -221.0
+offset_top = -21.5
+offset_right = -129.0
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "SENSITIVITY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="buttons/resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="buttons/options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="buttons/back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="options/FOV/FOV" to="." method="_on_fov_value_changed"]
+[connection signal="value_changed" from="options/SENSITIVITY/SENSITIVITY" to="." method="_on_sensitivity_value_changed"]
