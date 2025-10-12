@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://csrn761uns3ak"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8o0ns"]
+friction = 34.0
+bounce = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8o0ns"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.3
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8o0ns"]
+height = 0.3
+radius = 0.1
+
+[node name="Petarda" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_8o0ns")
+continuous_cd = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0017544255, -0.0017870814, 0.00077002123)
+mesh = SubResource("CylinderMesh_8o0ns")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0023128688, 0)
+shape = SubResource("CylinderShape3D_8o0ns")
+
+[node name="decay_timer" type="Timer" parent="."]

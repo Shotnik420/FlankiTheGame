@@ -61,6 +61,8 @@ material = SubResource("StandardMaterial3D_w8lm7")
 
 [node name="Puszka" parent="." instance=ExtResource("4_w8lm7")]
 transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.41309512, -2.0222461)
+collision_layer = 3
+collision_mask = 3
 
 [node name="Pause_menu" parent="." instance=ExtResource("6_knfkt")]
 

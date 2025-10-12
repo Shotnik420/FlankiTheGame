@@ -19,6 +19,7 @@ shape = SubResource("CapsuleShape3D_a321r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_6b8q1")
 mesh = SubResource("CapsuleMesh_ovlec")
 
@@ -26,3 +27,12 @@ mesh = SubResource("CapsuleMesh_ovlec")
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Throwing_point" type="Marker3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02467227, 0.02778244, -0.40640914)
+
+[node name="Throw_timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="Throw_timer" to="." method="_on_thow_timer_timeout"]
+[connection signal="timeout" from="Throw_timer" to="." method="_on_throw_timer_timeout"]
