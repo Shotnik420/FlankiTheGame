@@ -1,9 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bx7re81noljwh"]
 
-[ext_resource type="Script" uid="uid://bmptslhxomwlh" path="res://sceny/player.gd" id="1_6b8q1"]
+[ext_resource type="Script" uid="uid://bmptslhxomwlh" path="res://skrypty/player.gd" id="1_6b8q1"]
 [ext_resource type="Texture2D" uid="uid://0ishtn1wlx5w" path="res://assety/tekstury/dev/Green/texture_01.png" id="1_d6lse"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a321r"]
+height = 1.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6b8q1"]
 albedo_texture = ExtResource("1_d6lse")
@@ -13,8 +14,12 @@ albedo_texture = ExtResource("1_d6lse")
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_6b8q1")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="StandShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_a321r")
+
+[node name="CrouchShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6486112, 0)
 shape = SubResource("CapsuleShape3D_a321r")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -23,6 +28,27 @@ material_override = SubResource("StandardMaterial3D_6b8q1")
 mesh = SubResource("CapsuleMesh_ovlec")
 
 [node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+[node name="Eyes" type="Node3D" parent="Head"]
+
+[node name="Camera3D" type="Camera3D" parent="Head/Eyes"]
+
+[node name="VisRay" type="RayCast3D" parent="Head/Eyes/Camera3D"]
+collision_mask = 16
+
+[node name="StandUpCheck" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 0.5, 0)
+
+[node name="Modules" type="Node" parent="."]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
