@@ -3,7 +3,7 @@ class_name Player
 
 #Czulosc rozgladania sie 
 @export var SENSITIVITY : float = 0.003
-
+signal cam_ready
 var jump_velocity = 4.5
 
 var bob_freq = 2.0
@@ -79,6 +79,7 @@ var clicked_object
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	holder_pos = item_holder.position
+	cam_ready.emit(self)
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
@@ -247,3 +248,5 @@ func add_module(module : Module):
 func updateModules(delta):
 	for module in modules.get_children():
 		module.PhysicsUpdate(delta)
+func sensitivity_change(value) -> void:
+	SENSITIVITY=value
