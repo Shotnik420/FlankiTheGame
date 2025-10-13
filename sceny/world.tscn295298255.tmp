@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://1u7mltbrwr1v"]
+
+[ext_resource type="Texture2D" uid="uid://bw571yhq0sbp" path="res://assety/tekstury/dev/Orange/texture_01.png" id="1_grak2"]
+[ext_resource type="PackedScene" uid="uid://bx7re81noljwh" path="res://sceny/player.tscn" id="2_u8c6x"]
+[ext_resource type="Texture2D" uid="uid://bibbo12ju6ixg" path="res://assety/tekstury/dev/Dark/texture_02.png" id="3_io22o"]
+[ext_resource type="PackedScene" uid="uid://8sqqv55pbmds" path="res://sceny/puszka.tscn" id="4_w8lm7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8c6x"]
+albedo_texture = ExtResource("1_grak2")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u8c6x"]
+
+[sub_resource type="Sky" id="Sky_io22o"]
+sky_material = SubResource("ProceduralSkyMaterial_u8c6x")
+
+[sub_resource type="Environment" id="Environment_w8lm7"]
+background_mode = 2
+sky = SubResource("Sky_io22o")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8lm7"]
+albedo_texture = ExtResource("3_io22o")
+uv1_triplanar = true
+
+[node name="World" type="Node3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.990651, 0)
+material_override = SubResource("StandardMaterial3D_u8c6x")
+use_collision = true
+size = Vector3(23.023438, 3.0212402, 24.799805)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38931274, 0)
+operation = 2
+size = Vector3(21.591797, 2.8031616, 22.783203)
+
+[node name="Player" parent="." instance=ExtResource("2_u8c6x")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_w8lm7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6457376, 0.7635594, 0, -0.7635594, 0.6457376, 0, 0, 0)
+light_color = Color(1, 1, 0.93333334, 1)
+shadow_enabled = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35084355, -2.5844593)
+use_collision = true
+size = Vector3(2.4628906, 1, 1.6455078)
+material = SubResource("StandardMaterial3D_w8lm7")
+
+[node name="Puszka" parent="." instance=ExtResource("4_w8lm7")]
+transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.41309512, -2.0222461)
