@@ -54,8 +54,7 @@ func _on_back_pressed() -> void:
 
 
 func _on_fov_value_changed(value: float) -> void:
-	if player_cam !=null:
-		player_cam.fov=value
+	player.base_fov=value
 
 
 func _on_player_cam_ready(prop) -> void:
