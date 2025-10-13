@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name Player
 
 #Czulosc rozgladania sie 
 @export var SENSITIVITY : float = 0.003
@@ -53,10 +53,15 @@ var base_fov = 90.0
 @onready var standing_collision_shape = $StandShape
 @onready var crouching_collision_shape = $CrouchShape
 
-@onready var label = $UI/Label
+@onready var label = $HudLayer/UI/Label
 @onready var loading_circle = $UI/Loading
 
 @onready var modules = $Modules
+
+@onready var item_holder = $Head/Eyes/Camera3D/ItemHolder
+var holder_pos = Vector3.ZERO
+var current_item
+
 enum PlayerState {
 	IDLE_STAND,
 	IDLE_CROUCH,
@@ -73,6 +78,7 @@ var clicked_object
 #Uruchamia się raz gdy wszystkie zmienne się załadują
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	holder_pos = item_holder.position
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
@@ -89,13 +95,10 @@ func _physics_process(delta: float) -> void:
 		movement(delta)
 	
 	if vis_ray.is_colliding():
-		if !clicked_object:
-			label.show()
-			label.text = "Wcisnij F by " + vis_ray.get_collider().display_name
-			if Input.is_action_pressed("interact"):
-				pass
-		else:
-			label.hide()
+		label.show()
+		label.text = "Wcisnij F by " + vis_ray.get_collider().display_name
+		if Input.is_action_just_pressed("interact"):
+			vis_ray.get_collider().interact(self)
 	else:
 		label.hide()
 		clicked_object = false
@@ -104,12 +107,20 @@ func _physics_process(delta: float) -> void:
 	
 	
 	updateModules(delta)
+	updatePickedUp(delta)
 	
 	move_and_slide()
 
 func headbob() -> void:
 	head_bobbing_vector.y = sin(head_bobbing_index)
 	head_bobbing_vector.x = sin(head_bobbing_index/2) * 0.5
+
+func updatePickedUp(delta):
+	
+	if current_item:
+		#item_holder.global_position = lerp(item_holder.global_position,holder_pos,delta*10 )
+		current_item.global_position = item_holder.global_position
+		current_item.global_rotation = item_holder.global_rotation
 
 func movement(delta):
 	# Handle jump.
