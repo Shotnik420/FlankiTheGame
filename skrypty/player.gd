@@ -62,6 +62,13 @@ var base_fov = 90.0
 var holder_pos = Vector3.ZERO
 var current_item
 
+var can_throw= true
+var petarda=preload("res://sceny/petarda.tscn")
+@onready var throw_timer: Timer = $ThrowTimer
+var thrown_petards: Array = []  
+const MAX_PETARDS: int = 3
+@onready var throw_point = $Head/Eyes/Camera3D/ThrowPoint
+
 enum PlayerState {
 	IDLE_STAND,
 	IDLE_CROUCH,
@@ -95,7 +102,7 @@ func _physics_process(delta: float) -> void:
 	if !movement_block:
 		movement(delta)
 	
-	if vis_ray.is_colliding():
+	if vis_ray.is_colliding() and vis_ray.get_collider():
 		label.show()
 		label.text = "Wcisnij F by " + vis_ray.get_collider().display_name
 		if Input.is_action_just_pressed("interact"):
@@ -168,7 +175,7 @@ func movement(delta):
 	else:
 		eyes.position.y = lerp(eyes.position.y, 0.0, delta*10.0)
 		eyes.position.x = lerp(eyes.position.x, 0.0, delta*10.0)
-
+	petarda_throw()
 #func interact_circle():
 	#interact_circle_value -= 0.1
 	#interact_circle_value = clampf(interact_circle_value, 0.0, 1.0)
@@ -250,3 +257,44 @@ func updateModules(delta):
 		module.PhysicsUpdate(delta)
 func sensitivity_change(value) -> void:
 	SENSITIVITY=value
+
+func pickUpItem(item):
+	item_holder.add_child(item)
+	current_item = item
+	return true
+
+func petarda_throw():
+	if Input.is_action_just_pressed("throw") && can_throw==true:
+		# Tworzenie nowej petardy
+		var petarda_spawn = petarda.instantiate()
+		petarda_spawn.position = throw_point.global_position
+		get_tree().current_scene.add_child(petarda_spawn)
+		# Impuls rzutu
+		var throw_force = -18.0
+		var up_direction = 3.5
+		var player_rotation = camera.global_transform.basis.z.normalized()
+		petarda_spawn.apply_central_impulse(player_rotation * throw_force + Vector3(0, up_direction, 0))
+		# Losowy obrót
+		petarda_spawn.angular_velocity = Vector3(
+			randf_range(-8.0, 8.0),
+			randf_range(-8.0, 8.0),
+			randf_range(-8.0, 8.0)
+		)
+
+		# Dodaj do listy
+		thrown_petards.append(petarda_spawn)
+
+		# Jeśli przekroczono limit – usuń najstarszą
+		if thrown_petards.size() > MAX_PETARDS:
+			var oldest = thrown_petards.pop_front()  # Usuwa pierwszy element
+			if oldest and is_instance_valid(oldest):
+				oldest.queue_free()
+
+
+		# Zablokuj rzucanie i uruchom timer
+		can_throw = false
+		throw_timer.start()
+
+
+func _on_throw_timer_timeout() -> void:
+	can_throw = true
