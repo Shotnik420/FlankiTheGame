@@ -52,6 +52,9 @@ debug_shape_thickness = 1
 [node name="ItemHolder" type="Node3D" parent="Head/Eyes/Camera3D"]
 transform = Transform3D(-0.0640451, 0.2931394, 0.9539222, 0.019636793, 0.9560697, -0.29248095, -0.9977538, 0, -0.0669879, 0.36158404, -0.27211928, -0.7061417)
 
+[node name="ThrowPoint" type="Node3D" parent="Head/Eyes/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38203847, -0.980712)
+
 [node name="StandUpCheck" type="RayCast3D" parent="Head"]
 target_position = Vector3(0, 0.5, 0)
 
@@ -85,3 +88,7 @@ text = "BABABABA"
 label_settings = SubResource("LabelSettings_6b8q1")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ThrowTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ThrowTimer" to="." method="_on_throw_timer_timeout"]
