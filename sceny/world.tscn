@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://1u7mltbrwr1v"]
+[gd_scene load_steps=13 format=3 uid="uid://1u7mltbrwr1v"]
 
 [ext_resource type="Texture2D" uid="uid://bw571yhq0sbp" path="res://assety/tekstury/dev/Orange/texture_01.png" id="1_grak2"]
 [ext_resource type="Script" uid="uid://bcdgnphgkgjsd" path="res://sceny/world.gd" id="1_knfkt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bibbo12ju6ixg" path="res://assety/tekstury/dev/Dark/texture_02.png" id="3_io22o"]
 [ext_resource type="PackedScene" uid="uid://8sqqv55pbmds" path="res://sceny/puszka.tscn" id="4_w8lm7"]
 [ext_resource type="PackedScene" uid="uid://c8jppjhd4k7b6" path="res://sceny/pause_menu.tscn" id="6_knfkt"]
+[ext_resource type="PackedScene" uid="uid://b846haf88j12n" path="res://sceny/puszkawidmo.tscn" id="7_qp6xn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8c6x"]
 albedo_texture = ExtResource("1_grak2")
@@ -32,7 +33,7 @@ uv1_triplanar = true
 [node name="World" type="Node3D"]
 script = ExtResource("1_knfkt")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="CSGBox3D" type="CSGBox3D" parent="." groups=["floor"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.990651, 0)
 material_override = SubResource("StandardMaterial3D_u8c6x")
 use_collision = true
@@ -53,14 +54,14 @@ transform = Transform3D(1, 0, 0, 0, 0.6457376, 0.7635594, 0, -0.7635594, 0.64573
 light_color = Color(1, 1, 0.93333334, 1)
 shadow_enabled = true
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35084355, -2.5844593)
+[node name="CSGBox3D2" type="CSGBox3D" parent="." groups=["floor"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35084355, -3.1798878)
 use_collision = true
-size = Vector3(2.4628906, 1, 1.6455078)
+size = Vector3(5.0195313, 1, 4.2667847)
 material = SubResource("StandardMaterial3D_w8lm7")
 
 [node name="Puszka" parent="." instance=ExtResource("4_w8lm7")]
-transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.41309512, -2.0222461)
+transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.4522816, -2.9835997)
 collision_layer = 3
 collision_mask = 3
 
@@ -69,6 +70,13 @@ layer = 3
 
 [node name="Pause_menu" parent="PauseLayer" instance=ExtResource("6_knfkt")]
 
+[node name="PuszkaPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39702296, -2.3499777)
+visible = false
+
+[node name="Cylinder" parent="PuszkaPoint" instance=ExtResource("7_qp6xn")]
+
+[connection signal="mam_puszke" from="Player" to="." method="_on_player_mam_puszke"]
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="Player" method="sensitivity_change"]
 
 [editable path="Player"]

@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 Global="*res://skrypty/global.gd"
 
+[global_group]
+
+floor=""
+piwo=""
+
 [input]
 
 forward={

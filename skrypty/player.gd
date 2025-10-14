@@ -82,6 +82,8 @@ var player_state : PlayerState = PlayerState.IDLE_STAND
 var movement_block : bool = false
 var clicked_object
 
+signal mam_puszke
+
 #Uruchamia się raz gdy wszystkie zmienne się załadują
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -261,6 +263,8 @@ func sensitivity_change(value) -> void:
 func pickUpItem(item):
 	item_holder.add_child(item)
 	current_item = item
+	if item.is_in_group("piwo"):
+		mam_puszke.emit()
 	return true
 
 func petarda_throw():

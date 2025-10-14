@@ -1,17 +1,14 @@
-[gd_scene load_steps=10 format=4 uid="uid://8sqqv55pbmds"]
+[gd_scene load_steps=6 format=4 uid="uid://b846haf88j12n"]
 
-[ext_resource type="Script" uid="uid://d1nldyd1w7rku" path="res://skrypty/puszka.gd" id="1_i633u"]
-[ext_resource type="Texture2D" uid="uid://cbbvuvr2ivpg6" path="res://assety/modele/puszka_texture.png" id="1_weckn"]
-[ext_resource type="Script" uid="uid://7k8few77t4gq" path="res://skrypty/pucha.gd" id="2_gdgtk"]
-[ext_resource type="Script" uid="uid://bwtia7dv6aye0" path="res://skrypty/fall_check.gd" id="4_r6xcc"]
+[ext_resource type="Texture2D" uid="uid://cbbvuvr2ivpg6" path="res://assety/modele/puszka_texture.png" id="1_wkf8u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri4ea"]
 resource_name = "Material.001"
 cull_mode = 2
-albedo_texture = ExtResource("1_weckn")
+albedo_texture = ExtResource("1_wkf8u")
 texture_filter = 2
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_r6xcc"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_ihq8j"]
 _surfaces = [{
 "aabb": AABB(-0.8381849, -2.2384224, -0.8381849, 1.6763698, 4.4506865, 1.6763698),
 "format": 34896613377,
@@ -25,7 +22,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_gdgtk"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_gva0v"]
 resource_name = "puszka_Cylinder"
 _surfaces = [{
 "aabb": AABB(-0.8381849, -2.2384224, -0.8381849, 1.6763698, 4.4506865, 1.6763698),
@@ -41,43 +38,17 @@ _surfaces = [{
 "vertex_data": PackedByteArray("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")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_r6xcc")
+shadow_mesh = SubResource("ArrayMesh_ihq8j")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_weckn"]
-height = 0.5192871
-radius = 0.106933594
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_itm0d"]
+transparency = 1
+albedo_color = Color(1, 1, 0.17254902, 0.40392157)
+emission_enabled = true
+emission = Color(0.7934945, 0.6586757, 0.13404977, 1)
+emission_energy_multiplier = 1.37
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_i633u"]
-height = 0.09588623
-radius = 0.1303711
-
-[node name="Puszka" type="RigidBody3D" groups=["piwo"]]
-script = ExtResource("1_i633u")
-
-[node name="Cylinder" type="MeshInstance3D" parent="."]
+[node name="Cylinder" type="MeshInstance3D"]
 transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
-mesh = SubResource("ArrayMesh_gdgtk")
+mesh = SubResource("ArrayMesh_gva0v")
 skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00036621094, 0)
-shape = SubResource("CylinderShape3D_weckn")
-
-[node name="Interact" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("2_gdgtk")
-display_name = &"podniesc puszke"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Interact"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00036621094, 0)
-shape = SubResource("CylinderShape3D_weckn")
-
-[node name="FallCheck" type="Area3D" parent="."]
-script = ExtResource("4_r6xcc")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FallCheck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25094604, 0)
-shape = SubResource("CylinderShape3D_i633u")
-
-[connection signal="body_entered" from="FallCheck" to="." method="_on_fall_check_body_entered"]
+surface_material_override/0 = SubResource("StandardMaterial3D_itm0d")
