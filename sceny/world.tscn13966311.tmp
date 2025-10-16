@@ -61,7 +61,9 @@ size = Vector3(5.0195313, 1, 4.2667847)
 material = SubResource("StandardMaterial3D_w8lm7")
 
 [node name="Puszka" parent="." instance=ExtResource("4_w8lm7")]
-transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.45389342, -2.9835997)
+transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.4522816, -2.9835997)
+collision_layer = 3
+collision_mask = 3
 
 [node name="PauseLayer" type="CanvasLayer" parent="."]
 layer = 3
@@ -73,7 +75,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39702296, -2.3499777)
 visible = false
 
 [connection signal="mam_puszke" from="Player" to="." method="_on_player_mam_puszke"]
-[connection signal="puszka_przewrocona" from="Puszka" to="Player" method="_on_puszka_puszka_przewrocona"]
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="Player" method="sensitivity_change"]
 
 [editable path="Player"]

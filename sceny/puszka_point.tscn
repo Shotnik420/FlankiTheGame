@@ -1,14 +1,17 @@
-[gd_scene load_steps=10 format=4 uid="uid://8sqqv55pbmds"]
+[gd_scene load_steps=10 format=4 uid="uid://dnhr4ympka7td"]
 
-[ext_resource type="Script" uid="uid://d1nldyd1w7rku" path="res://skrypty/puszka_object.gd" id="1_i633u"]
-[ext_resource type="Texture2D" uid="uid://cbbvuvr2ivpg6" path="res://assety/modele/puszka_texture.png" id="1_weckn"]
-[ext_resource type="Script" uid="uid://7k8few77t4gq" path="res://skrypty/pucha_interact.gd" id="2_gdgtk"]
-[ext_resource type="Script" uid="uid://bwtia7dv6aye0" path="res://skrypty/fall_check.gd" id="4_r6xcc"]
+[ext_resource type="Script" uid="uid://2tdionnt6hfv" path="res://skrypty/puszka_point.gd" id="1_saw2v"]
+[ext_resource type="Texture2D" uid="uid://cbbvuvr2ivpg6" path="res://assety/modele/puszka_texture.png" id="3_q75r0"]
+[ext_resource type="Script" uid="uid://c01011b3u24dq" path="res://skrypty/interact_puszkapoint.gd" id="3_sscxk"]
+[ext_resource type="Texture2D" uid="uid://dlvdc5kseleh3" path="res://assety/tekstury/circ.png" id="4_q75r0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hb0kg"]
+size = Vector3(1, 0.8491211, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ri4ea"]
 resource_name = "Material.001"
 cull_mode = 2
-albedo_texture = ExtResource("1_weckn")
+albedo_texture = ExtResource("3_q75r0")
 texture_filter = 2
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_r6xcc"]
@@ -25,7 +28,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_gdgtk"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_qmntp"]
 resource_name = "puszka_Cylinder"
 _surfaces = [{
 "aabb": AABB(-0.8381849, -2.2384224, -0.8381849, 1.6763698, 4.4506865, 1.6763698),
@@ -43,43 +46,34 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_r6xcc")
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_weckn"]
-height = 0.5192871
-radius = 0.106933594
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dqhdm"]
+transparency = 1
+albedo_color = Color(1, 1, 0, 0.14901961)
+emission_enabled = true
+emission = Color(0.92183614, 0.8510127, 0, 1)
+emission_energy_multiplier = 6.89
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_i633u"]
-height = 0.09588623
-radius = 0.1303711
-
-[node name="Puszka" type="RigidBody3D" groups=["piwo"]]
-collision_layer = 3
-collision_mask = 3
-script = ExtResource("1_i633u")
-
-[node name="Cylinder" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
-mesh = SubResource("ArrayMesh_gdgtk")
-skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00036621094, 0)
-shape = SubResource("CylinderShape3D_weckn")
+[node name="PuszkaPoint" type="Node3D"]
+script = ExtResource("1_saw2v")
 
 [node name="Interact" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("2_gdgtk")
-display_name = &"podniesc puszke"
+script = ExtResource("3_sscxk")
+display_name = &"postawic puszke"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Interact"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00036621094, 0)
-shape = SubResource("CylinderShape3D_weckn")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07543945, 0)
+shape = SubResource("BoxShape3D_hb0kg")
 
-[node name="FallCheck" type="Area3D" parent="."]
-script = ExtResource("4_r6xcc")
+[node name="Cylinder" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+mesh = SubResource("ArrayMesh_qmntp")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_dqhdm")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FallCheck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25094604, 0)
-shape = SubResource("CylinderShape3D_i633u")
-
-[connection signal="body_entered" from="FallCheck" to="." method="_on_fall_check_body_entered"]
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21110052, 0)
+size = Vector3(1, 0.194, 1)
+texture_albedo = ExtResource("4_q75r0")
+modulate = Color(1, 1, 1, 0.5254902)
