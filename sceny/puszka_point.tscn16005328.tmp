@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnhr4ympka7td"]
+
+[ext_resource type="PackedScene" uid="uid://b846haf88j12n" path="res://sceny/puszkawidmo.tscn" id="1_hb0kg"]
+[ext_resource type="Script" uid="uid://2tdionnt6hfv" path="res://skrypty/puszka_point.gd" id="1_saw2v"]
+
+[sub_resource type="GDScript" id="GDScript_saw2v"]
+resource_name = "interact"
+script/source = "extends Interact
+
+func interact(player):
+	print(\"postawiam puszkę\")
+	#player.current_item = 
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hb0kg"]
+size = Vector3(1, 0.8491211, 1)
+
+[node name="PuszkaPoint" type="Node3D"]
+script = ExtResource("1_saw2v")
+
+[node name="Cylinder" parent="." instance=ExtResource("1_hb0kg")]
+surface_material_override/0 = null
+
+[node name="Interact" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 0
+script = SubResource("GDScript_saw2v")
+display_name = &"by postawić puszkę"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07543945, 0)
+shape = SubResource("BoxShape3D_hb0kg")
