@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bx7re81noljwh"]
+[gd_scene load_steps=10 format=3 uid="uid://bx7re81noljwh"]
 
 [ext_resource type="Script" uid="uid://bmptslhxomwlh" path="res://skrypty/player.gd" id="1_6b8q1"]
 [ext_resource type="Texture2D" uid="uid://0ishtn1wlx5w" path="res://assety/tekstury/dev/Green/texture_01.png" id="1_d6lse"]
+[ext_resource type="Script" uid="uid://cr5l6rji5fb35" path="res://skrypty/throwing.gd" id="3_ovlec"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6b8q1"]
 
@@ -12,6 +13,13 @@ height = 1.3
 albedo_texture = ExtResource("1_d6lse")
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ovlec"]
+
+[sub_resource type="GDScript" id="GDScript_ovlec"]
+resource_name = "Modules"
+script/source = "extends Node
+
+@export var player : Player
+"
 
 [sub_resource type="LabelSettings" id="LabelSettings_6b8q1"]
 font_size = 25
@@ -58,7 +66,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.38203847, -0.980712)
 [node name="StandUpCheck" type="RayCast3D" parent="Head"]
 target_position = Vector3(0, 0.5, 0)
 
-[node name="Modules" type="Node" parent="."]
+[node name="Modules" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = SubResource("GDScript_ovlec")
+player = NodePath("..")
+
+[node name="Throwing" type="Node" parent="Modules"]
+script = ExtResource("3_ovlec")
 
 [node name="HudLayer" type="CanvasLayer" parent="."]
 layer = 2
@@ -90,5 +103,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ThrowTimer" type="Timer" parent="."]
+wait_time = 0.5
 
-[connection signal="timeout" from="ThrowTimer" to="." method="_on_throw_timer_timeout"]
+[connection signal="timeout" from="ThrowTimer" to="Modules/Throwing" method="_on_throw_timer_timeout"]

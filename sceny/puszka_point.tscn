@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=4 uid="uid://boikag4di0gmu"]
 
-[ext_resource type="Script" path="res://skrypty/puszka_point.gd" id="1_saw2v"]
+[ext_resource type="Script" uid="uid://2tdionnt6hfv" path="res://skrypty/puszka_point.gd" id="1_saw2v"]
 [ext_resource type="Texture2D" uid="uid://cbbvuvr2ivpg6" path="res://assety/modele/puszka_texture.png" id="3_q75r0"]
-[ext_resource type="Script" path="res://skrypty/interact_puszkapoint.gd" id="3_sscxk"]
+[ext_resource type="Script" uid="uid://c01011b3u24dq" path="res://skrypty/interact_puszkapoint.gd" id="3_sscxk"]
 [ext_resource type="Texture2D" uid="uid://dlvdc5kseleh3" path="res://assety/tekstury/circ.png" id="4_q75r0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hb0kg"]

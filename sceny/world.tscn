@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bibbo12ju6ixg" path="res://assety/tekstury/dev/Dark/texture_02.png" id="3_io22o"]
 [ext_resource type="PackedScene" uid="uid://8sqqv55pbmds" path="res://sceny/puszka.tscn" id="4_w8lm7"]
 [ext_resource type="PackedScene" uid="uid://c8jppjhd4k7b6" path="res://sceny/pause_menu.tscn" id="6_knfkt"]
-[ext_resource type="PackedScene" uid="uid://dnhr4ympka7td" path="res://sceny/puszka_point.tscn" id="7_qp6xn"]
+[ext_resource type="PackedScene" uid="uid://boikag4di0gmu" path="res://sceny/puszka_point.tscn" id="7_qp6xn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8c6x"]
 albedo_texture = ExtResource("1_grak2")
@@ -45,6 +45,7 @@ operation = 2
 size = Vector3(21.591797, 2.8031616, 22.783203)
 
 [node name="Player" parent="." instance=ExtResource("2_u8c6x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.6702375)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_w8lm7")
