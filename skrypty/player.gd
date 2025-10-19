@@ -165,9 +165,8 @@ func _physics_process(delta: float) -> void:
 		label.text = "Wcisnij F by " + vis_ray.get_collider().display_name
 		if Input.is_action_just_pressed("interact"):
 			vis_ray.get_collider().interact(self)
-	else:
-		#Inaczej schowaj napis
-		label.hide()
+		else:
+			label.hide()
 		
 	
 	

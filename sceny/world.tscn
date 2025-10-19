@@ -65,7 +65,7 @@ material = SubResource("StandardMaterial3D_w8lm7")
 transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.45389342, -2.9835997)
 
 [node name="PauseLayer" type="CanvasLayer" parent="."]
-layer = 3
+layer = 10
 
 [node name="Pause_menu" parent="PauseLayer" instance=ExtResource("6_knfkt")]
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckxiyv53y7dkn"]
+
+[ext_resource type="Script" uid="uid://bgblimalpmp2n" path="res://skrypty/water_spring.gd" id="1_dejqp"]
+[ext_resource type="Texture2D" uid="uid://c1i3vik5jud7e" path="res://assety/tekstury/hud/klockek.png" id="2_qd6wq"]
+
+[node name="water_spring" type="Node2D"]
+script = ExtResource("1_dejqp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1, 1.6)
+texture = ExtResource("2_qd6wq")

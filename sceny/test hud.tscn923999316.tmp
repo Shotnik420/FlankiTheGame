@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdjf1frbujfxu"]
+
+[ext_resource type="PackedScene" uid="uid://g3up542hbg7g" path="res://sceny/line.tscn" id="1_yimm7"]
+[ext_resource type="PackedScene" uid="uid://cj7wm50loassy" path="res://sceny/Fluid.tscn" id="2_haycm"]
+[ext_resource type="Texture2D" uid="uid://bmdpd7lh5mpk8" path="res://assety/tekstury/piwo/puszka_ph.png" id="2_tijkf"]
+
+[node name="Node2D" type="Node2D"]
+scale = Vector2(1.0018688, 1)
+
+[node name="Line" parent="." instance=ExtResource("1_yimm7")]
+position = Vector2(253.5262, 216)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+clip_children = 2
+position = Vector2(974.1793, 319.00003)
+scale = Vector2(0.902581, 0.902581)
+texture = ExtResource("2_tijkf")
+
+[node name="Fluid" parent="Sprite2D" instance=ExtResource("2_haycm")]
+position = Vector2(-172.51518, -140.70763)
+scale = Vector2(0.422, 0.422)
+distance_between_springs = 60
+spring_number = 14
+
+[connection signal="took_sip" from="Line" to="Sprite2D/Fluid" method="_on_line_took_sip"]
