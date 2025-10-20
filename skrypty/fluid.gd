@@ -27,7 +27,7 @@ func _ready() -> void:
 		springs.append(w)
 		w.initialize(x_position)
 
-func _physics_process(delta: float) -> void:
+func PhysicsUpdate(_delta: float) -> void:
 	for i in springs:
 		i.water_update(k,d)
 	var left_deltas = []

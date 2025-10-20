@@ -1,15 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://1u7mltbrwr1v"]
+[gd_scene load_steps=14 format=3 uid="uid://1u7mltbrwr1v"]
 
-[ext_resource type="Texture2D" uid="uid://bw571yhq0sbp" path="res://assety/tekstury/dev/Orange/texture_01.png" id="1_grak2"]
 [ext_resource type="Script" uid="uid://bcdgnphgkgjsd" path="res://sceny/world.gd" id="1_knfkt"]
+[ext_resource type="Texture2D" uid="uid://cqddgnh8mw3ey" path="res://assety/tekstury/dev/Green/texture_02.png" id="2_qp6xn"]
 [ext_resource type="PackedScene" uid="uid://bx7re81noljwh" path="res://sceny/player.tscn" id="2_u8c6x"]
 [ext_resource type="Texture2D" uid="uid://bibbo12ju6ixg" path="res://assety/tekstury/dev/Dark/texture_02.png" id="3_io22o"]
 [ext_resource type="PackedScene" uid="uid://8sqqv55pbmds" path="res://sceny/puszka.tscn" id="4_w8lm7"]
 [ext_resource type="PackedScene" uid="uid://c8jppjhd4k7b6" path="res://sceny/pause_menu.tscn" id="6_knfkt"]
 [ext_resource type="PackedScene" uid="uid://boikag4di0gmu" path="res://sceny/puszka_point.tscn" id="7_qp6xn"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8c6x"]
-albedo_texture = ExtResource("1_grak2")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qd3ma"]
+albedo_texture = ExtResource("2_qp6xn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pk3dx"]
+albedo_texture = ExtResource("2_qp6xn")
 uv1_triplanar = true
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u8c6x"]
@@ -34,15 +37,16 @@ uv1_triplanar = true
 script = ExtResource("1_knfkt")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." groups=["floor"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.990651, 0)
-material_override = SubResource("StandardMaterial3D_u8c6x")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003715992, 0.990651, -0.006246805)
 use_collision = true
 size = Vector3(23.023438, 3.0212402, 24.799805)
+material = SubResource("StandardMaterial3D_qd3ma")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38931274, 0)
 operation = 2
 size = Vector3(21.591797, 2.8031616, 22.783203)
+material = SubResource("StandardMaterial3D_pk3dx")
 
 [node name="Player" parent="." instance=ExtResource("2_u8c6x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.6702375)
@@ -78,3 +82,4 @@ visible = false
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="Player" method="sensitivity_change"]
 
 [editable path="Player"]
+[editable path="Player/BeerLayer/Piwo_hud"]

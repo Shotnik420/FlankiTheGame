@@ -15,7 +15,7 @@ func _ready() -> void:
 	op_tween.kill()
 
 
-func _physics_process(delta: float) -> void:
+func PhysicsUpdate(_delta: float) -> void:
 	if !clicked:
 		global_position.x -= speed
 		if position.x <=0.0:

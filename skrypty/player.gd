@@ -116,7 +116,12 @@ var player_state : PlayerState = PlayerState.IDLE_STAND
 
 #Blokada ruchu
 var movement_block : bool = true
+var mouse_block : bool = false
 
+@onready var throwing_module : Module = $Modules/Throwing
+@onready var drinking_module : Module = $Modules/Drinking
+
+@onready var beer_layer : CanvasLayer = $BeerLayer
 #Sygnał wysyłany gdy podniesiemy puszkę
 signal mam_puszke
 
@@ -126,13 +131,15 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#Wysyłamy że kamera jest gotowa
 	cam_ready.emit(self)
-	if modules.get_child(0):
+	if modules.initial_module:
+		changeModule(modules.initial_module)
+	elif modules.get_child(0):
 		changeModule(modules.get_child(0))
 
 
 #Ta funkcja odpala się kiedy poruszysz myszką
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and !mouse_block:
 		#Obróć głowę lewo-prawo
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		#Obróc głowę góra-dół
@@ -323,6 +330,8 @@ func updateModules(delta):
 		current_module.PhysicsUpdate(delta)
 
 func changeModule(module : Module):
+	if current_module:
+		current_module.Exit()
 	current_module = module
 	current_module.Enter()
 
@@ -341,8 +350,11 @@ func pickUpItem(item):
 
 
 
-
-
+func drinking_minigame():
+	mouse_block = true
+	movement_block = true
+	changeModule(drinking_module)
+	beer_layer.show()
 
 func _on_puszka_puszka_przewrocona() -> void:
-	movement_block = false
+	drinking_minigame()
