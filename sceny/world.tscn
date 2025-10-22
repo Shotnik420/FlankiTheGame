@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://1u7mltbrwr1v"]
+[gd_scene load_steps=17 format=3 uid="uid://1u7mltbrwr1v"]
 
 [ext_resource type="Script" uid="uid://bcdgnphgkgjsd" path="res://sceny/world.gd" id="1_knfkt"]
 [ext_resource type="Texture2D" uid="uid://cqddgnh8mw3ey" path="res://assety/tekstury/dev/Green/texture_02.png" id="2_qp6xn"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c8jppjhd4k7b6" path="res://sceny/pause_menu.tscn" id="6_knfkt"]
 [ext_resource type="PackedScene" uid="uid://boikag4di0gmu" path="res://sceny/puszka_point.tscn" id="7_qp6xn"]
 [ext_resource type="PackedScene" uid="uid://6it2f1mix2s8" path="res://sceny/debug_window.tscn" id="8_qd3ma"]
+[ext_resource type="Script" uid="uid://buk2xkcthhtgu" path="res://skrypty/team_line.gd" id="9_pk3dx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qd3ma"]
 albedo_texture = ExtResource("2_qp6xn")
@@ -34,6 +35,9 @@ glow_enabled = true
 albedo_texture = ExtResource("3_io22o")
 uv1_triplanar = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_qd3ma"]
+size = Vector3(21.932617, 3.8719482, 3.2196045)
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_knfkt")
 
@@ -49,8 +53,9 @@ operation = 2
 size = Vector3(21.591797, 2.8031616, 22.783203)
 material = SubResource("StandardMaterial3D_pk3dx")
 
-[node name="Player" parent="." instance=ExtResource("2_u8c6x")]
+[node name="Player" parent="." node_paths=PackedStringArray("world") groups=["Player"] instance=ExtResource("2_u8c6x")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.6702375)
+world = NodePath("..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_w8lm7")
@@ -79,16 +84,31 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39702296, -2.3499777)
 visible = false
 
+[node name="Cylinder" parent="PuszkaPoint" index="1"]
+surface_material_override/0 = null
+
 [node name="DebugLayer" type="CanvasLayer" parent="."]
 layer = 8
-visible = false
 
-[node name="DebugWindow" parent="DebugLayer" instance=ExtResource("8_qd3ma")]
+[node name="DebugWindow" parent="DebugLayer" node_paths=PackedStringArray("player") instance=ExtResource("8_qd3ma")]
 visible = false
+player = NodePath("../../Player")
+
+[node name="TeamLine" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.902502)
+script = ExtResource("9_pk3dx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TeamLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4359741, 1.1098022)
+shape = SubResource("BoxShape3D_qd3ma")
 
 [connection signal="mam_puszke" from="Player" to="." method="_on_player_mam_puszke"]
 [connection signal="puszka_przewrocona" from="Puszka" to="Player" method="_on_puszka_puszka_przewrocona"]
+[connection signal="puszka_przewrocona" from="Puszka" to="TeamLine" method="_on_puszka_puszka_przewrocona"]
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="Player" method="sensitivity_change"]
+[connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="TeamLine" method="_on_interact_spawned_pucha"]
+[connection signal="body_entered" from="TeamLine" to="TeamLine" method="_on_body_entered"]
 
 [editable path="Player"]
 [editable path="Player/BeerLayer/Piwo_hud"]
+[editable path="PuszkaPoint"]

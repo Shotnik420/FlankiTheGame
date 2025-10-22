@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bx7re81noljwh"]
+[gd_scene load_steps=14 format=3 uid="uid://bx7re81noljwh"]
 
 [ext_resource type="Script" uid="uid://bmptslhxomwlh" path="res://skrypty/player.gd" id="1_6b8q1"]
 [ext_resource type="Texture2D" uid="uid://0ishtn1wlx5w" path="res://assety/tekstury/dev/Green/texture_01.png" id="1_d6lse"]
 [ext_resource type="Script" uid="uid://cr5l6rji5fb35" path="res://skrypty/throwing.gd" id="3_ovlec"]
 [ext_resource type="PackedScene" uid="uid://cdjf1frbujfxu" path="res://sceny/piwo_hud.tscn" id="4_g34tb"]
 [ext_resource type="Script" uid="uid://brs3atbco3gth" path="res://skrypty/drinking.gd" id="4_wolqx"]
+[ext_resource type="Script" uid="uid://c0qsqoyqf0lh3" path="res://skrypty/running_module.gd" id="5_0o4rd"]
+[ext_resource type="Script" uid="uid://dctkk24bt65ul" path="res://skrypty/wait_module.gd" id="6_sr75g"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6b8q1"]
 
@@ -82,6 +84,12 @@ script = ExtResource("3_ovlec")
 script = ExtResource("4_wolqx")
 Line = NodePath("../../BeerLayer/Piwo_hud/Line")
 Fluid = NodePath("../../BeerLayer/Piwo_hud/Sprite2D/Fluid")
+
+[node name="Running" type="Node" parent="Modules"]
+script = ExtResource("5_0o4rd")
+
+[node name="Wait" type="Node" parent="Modules"]
+script = ExtResource("6_sr75g")
 
 [node name="HudLayer" type="CanvasLayer" parent="."]
 layer = 2

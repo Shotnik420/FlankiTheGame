@@ -1,5 +1,6 @@
 extends Interact
 
+signal spawned_pucha 
 func interact(player):
 	print("postawiam puszkę")
 	get_parent().hide()
@@ -12,8 +13,11 @@ func interact(player):
 	pucha.collision_mask = 3
 	pucha.axis_lock_angular_x = true
 	pucha.axis_lock_angular_z = true
+	pucha.interact.collision_layer = 0
+	pucha.interact.collision_mask = 0
 	player.current_item.queue_free()
 	player.current_item = null
+	spawned_pucha.emit()
 	await get_tree().create_timer(0.4, false).timeout
 	pucha.axis_lock_angular_x = false
 	pucha.axis_lock_angular_z = false

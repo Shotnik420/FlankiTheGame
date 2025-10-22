@@ -23,6 +23,7 @@ Global="*res://skrypty/global.gd"
 
 floor=""
 piwo=""
+Player=""
 
 [input]
 

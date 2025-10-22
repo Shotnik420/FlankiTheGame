@@ -1,14 +1,9 @@
 extends Node2D
 
 var velocity = 0
-
 var force = 0
-
 var height = 0
-
 var target_height = 0
-
-
 
 func water_update(spring_constant, dampening):
 	height = position.y

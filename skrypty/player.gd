@@ -111,17 +111,25 @@ enum PlayerState {
 	AIR
 }
 
+
+
 #Obecny stan gracza
 var player_state : PlayerState = PlayerState.IDLE_STAND
 
 #Blokada ruchu
 var movement_block : bool = true
 var mouse_block : bool = false
-
+#Modules
 @onready var throwing_module : Module = $Modules/Throwing
 @onready var drinking_module : Module = $Modules/Drinking
+@onready var wait_module : Module = $Modules/Wait
+@onready var running_module : Module = $Modules/Running
+
 
 @onready var beer_layer : CanvasLayer = $BeerLayer
+
+var my_team = 1
+@export var world : Node3D
 #Sygnał wysyłany gdy podniesiemy puszkę
 signal mam_puszke
 
@@ -135,6 +143,7 @@ func _ready() -> void:
 		changeModule(modules.initial_module)
 	elif modules.get_child(0):
 		changeModule(modules.get_child(0))
+	
 
 
 #Ta funkcja odpala się kiedy poruszysz myszką
@@ -160,10 +169,9 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	
 	#Aktualizacja movementu
-	if !movement_block:
-		movement(delta)
-	#else:
-	##Gdy nie możesz się ruszać to rzucaj
+	
+	movement(delta)
+
 	
 	
 	#Jeżeli coś jest przed twarzą to wyświetl nazwę i czekaj na kliknięcie
@@ -192,15 +200,19 @@ func headbob() -> void:
 
 func movement(delta):
 	# Handle jump.
-	if Input.is_action_just_pressed("space") and is_on_floor():
-		velocity.y = jump_velocity
 	
-	#Pobierz wejście WSAD 
-	input_dir = Input.get_vector("left", "right", "forward", "back")
-	
-	#Puszczenie sprinta daje jeszcze chwilkę by zacząć ślizg
-	if Input.is_action_just_released("sprint"):
-		sliding_window = sliding_window_max
+	if !movement_block:
+		if Input.is_action_just_pressed("space") and is_on_floor():
+			velocity.y = jump_velocity
+		
+		#Pobierz wejście WSAD 
+		input_dir = Input.get_vector("left", "right", "forward", "back")
+		
+		#Puszczenie sprinta daje jeszcze chwilkę by zacząć ślizg
+		if Input.is_action_just_released("sprint"):
+			sliding_window = sliding_window_max
+	else:
+		input_dir = Vector2(0,0)
 
 	#Jeżeli wcisnąłem crouch i mogę się ślizgać i jest jakieś wejście na WSAD to się ślizgamyyyy
 	if Input.is_action_just_pressed("crouch") and sliding_window > 0 and input_dir != Vector2.ZERO:
@@ -256,8 +268,6 @@ func movement(delta):
 		eyes.position.y = lerp(eyes.position.y, 0.0, delta*10.0)
 		eyes.position.x = lerp(eyes.position.x, 0.0, delta*10.0)
 
-
-
 func updatePlayerState() -> void:
 	moving = (input_dir != Vector2.ZERO)
 	if not is_on_floor():
@@ -280,8 +290,6 @@ func updatePlayerState() -> void:
 	updatePlayerSpeed(player_state)
 	updatePlayerColShape(player_state)
 	
-
-
 
 func updatePlayerColShape(_player_state : PlayerState) -> void:
 	if _player_state == PlayerState.CROUCHING or _player_state == PlayerState.IDLE_CROUCH:
@@ -348,13 +356,18 @@ func pickUpItem(item):
 		item.freeze = true
 	return true
 
-
-
 func drinking_minigame():
-	mouse_block = true
-	movement_block = true
 	changeModule(drinking_module)
-	beer_layer.show()
+
+func pick_up_minigame():
+	changeModule(running_module)
+
+
+func passed_the_line():
+	changeModule(throwing_module)
 
 func _on_puszka_puszka_przewrocona() -> void:
-	drinking_minigame()
+	if  world.whose_turn == my_team:
+		drinking_minigame()
+	else:
+		pick_up_minigame()

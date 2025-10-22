@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://6it2f1mix2s8"]
+[gd_scene load_steps=2 format=3 uid="uid://6it2f1mix2s8"]
+
+[ext_resource type="Script" uid="uid://c4jbe010f6rbn" path="res://skrypty/debug_window.gd" id="1_qjtqd"]
 
 [node name="DebugWindow" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qjtqd")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -30,22 +33,27 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 
-[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+[node name="PuszkaFallPlayer" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Gracz przewraca puszke"
 
-[node name="Button2" type="Button" parent="Panel/VBoxContainer"]
+[node name="PuszkaPutPlayer" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Gracz postawia puszkę"
 
-[node name="Button3" type="Button" parent="Panel/VBoxContainer"]
+[node name="PuszkaFallNpc" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Przeciwnik przewraca puszkę"
 
-[node name="Button4" type="Button" parent="Panel/VBoxContainer"]
+[node name="PuszkaPutNpc" type="Button" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Przeciwnik postawia puszkę"
+
+[connection signal="pressed" from="Panel/VBoxContainer/PuszkaFallPlayer" to="." method="_on_puszka_fall_player_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/PuszkaPutPlayer" to="." method="_on_puszka_put_player_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/PuszkaFallNpc" to="." method="_on_puszka_fall_npc_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/PuszkaPutNpc" to="." method="_on_puszka_put_npc_pressed"]
