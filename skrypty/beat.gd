@@ -10,12 +10,15 @@ extends Node2D
 @onready var arr2 = $Sprite2D2
 
 @onready var pucha = $"../Sprite2D"
+@onready var spawn_timer = $SpawnTimer
 
 var arr_tween : Tween 
 
 signal took_sip
 
-func PhysicsUpdate(_delta: float) -> void:
+func PhysicsUpdate(delta: float) -> void:
+	for kloc in linia.get_children():
+		kloc.PhysicsUpdate(delta)
 	if Input.is_action_just_pressed("space") and klocek_check.get_overlapping_areas().size() > 0:
 		var areas = klocek_check.get_overlapping_areas()
 		if areas[0].get_parent().click():

@@ -11,6 +11,8 @@ var petarda=preload("res://sceny/petarda.tscn")
 var thrown_petards: Array = []  
 func Enter():
 	player = get_parent().player
+	player.mouse_block = false
+	player.movement_block = true
 
 func PhysicsUpdate(_delta):
 	petarda_throw()
