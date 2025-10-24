@@ -36,5 +36,5 @@ func _on_puszka_fall_npc_pressed() -> void:
 
 
 func _on_puszka_put_npc_pressed() -> void:
-	player.changeModule(player.wait_module)
+	player.stop_drink()
 	was_blocked = false
