@@ -76,6 +76,7 @@ var base_fov = 90.0
 
 #Napis wyświetlający się gdy możesz coś podnieść
 @onready var label = $HudLayer/UI/Label
+@onready var komunikat = $HudLayer/UI/komunikat
 
 #Hud obracające się kółko interakcji (nieużywane)
 @onready var loading_circle = $UI/Loading
@@ -351,6 +352,7 @@ func pickUpItem(item):
 	current_item = item
 	if item.is_in_group("piwo"):
 		mam_puszke.emit()
+		item.przewrocona = true
 		item.position = Vector3.ZERO
 		item.rotation = Vector3.ZERO
 		item.freeze = true
@@ -361,13 +363,24 @@ func drinking_minigame():
 
 func pick_up_minigame():
 	changeModule(running_module)
-
+	show_komunikat("Podnies pucheee ")
 
 func passed_the_line():
 	changeModule(throwing_module)
+	show_komunikat("Traf w pucheee ")
+
+func stop_drink():
+	changeModule(wait_module)
 
 func _on_puszka_puszka_przewrocona() -> void:
 	if  world.whose_turn == my_team:
 		drinking_minigame()
+		show_komunikat("PIJJJJJ ")
 	else:
 		pick_up_minigame()
+
+func show_komunikat(text):
+	komunikat.text = text
+	komunikat.show()
+	await get_tree().create_timer(3.5,false).timeout
+	komunikat.hide()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://1u7mltbrwr1v"]
+[gd_scene load_steps=18 format=3 uid="uid://1u7mltbrwr1v"]
 
 [ext_resource type="Script" uid="uid://bcdgnphgkgjsd" path="res://sceny/world.gd" id="1_knfkt"]
 [ext_resource type="Texture2D" uid="uid://cqddgnh8mw3ey" path="res://assety/tekstury/dev/Green/texture_02.png" id="2_qp6xn"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://boikag4di0gmu" path="res://sceny/puszka_point.tscn" id="7_qp6xn"]
 [ext_resource type="PackedScene" uid="uid://6it2f1mix2s8" path="res://sceny/debug_window.tscn" id="8_qd3ma"]
 [ext_resource type="Script" uid="uid://buk2xkcthhtgu" path="res://skrypty/team_line.gd" id="9_pk3dx"]
+[ext_resource type="Script" uid="uid://cgev6vtqo2btv" path="res://skrypty/npc_faker.gd" id="10_k4bb6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qd3ma"]
 albedo_texture = ExtResource("2_qp6xn")
@@ -102,9 +103,13 @@ script = ExtResource("9_pk3dx")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4359741, 1.1098022)
 shape = SubResource("BoxShape3D_qd3ma")
 
+[node name="NpcFaker" type="Node" parent="."]
+script = ExtResource("10_k4bb6")
+
 [connection signal="mam_puszke" from="Player" to="." method="_on_player_mam_puszke"]
 [connection signal="puszka_przewrocona" from="Puszka" to="Player" method="_on_puszka_puszka_przewrocona"]
 [connection signal="puszka_przewrocona" from="Puszka" to="TeamLine" method="_on_puszka_puszka_przewrocona"]
+[connection signal="puszka_przewrocona" from="Puszka" to="NpcFaker" method="_on_puszka_puszka_przewrocona"]
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="Player" method="sensitivity_change"]
 [connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="TeamLine" method="_on_interact_spawned_pucha"]
 [connection signal="body_entered" from="TeamLine" to="TeamLine" method="_on_body_entered"]
