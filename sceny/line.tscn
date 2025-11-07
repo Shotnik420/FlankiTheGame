@@ -5,33 +5,39 @@
 [ext_resource type="Texture2D" uid="uid://b38w1bitessme" path="res://assety/tekstury/hud/arrow.png" id="3_rwfve"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rwfve"]
-size = Vector2(16, 70)
+size = Vector2(12, 70)
 
-[node name="Line" type="Node2D"]
+[node name="Line" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_rwfve")
 
-[node name="linia" type="Sprite2D" parent="."]
+[node name="Holder" type="Node2D" parent="."]
+
+[node name="linia" type="Sprite2D" parent="Holder"]
+position = Vector2(0, -0.13500214)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xwkkq")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -45)
+[node name="Sprite2D" type="Sprite2D" parent="Holder"]
+position = Vector2(0, -45.135002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rwfve")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(0, 45)
+[node name="Sprite2D2" type="Sprite2D" parent="Holder"]
+position = Vector2(0, 44.864998)
 scale = Vector2(0.5, -0.5)
 texture = ExtResource("3_rwfve")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="Holder"]
+position = Vector2(0, -0.13500214)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Area2D"]
 shape = SubResource("RectangleShape2D_rwfve")
 
-[node name="SpawnTimer" type="Timer" parent="."]
+[node name="SpawnTimer" type="Timer" parent="Holder"]
 
-[node name="TextSpawn" type="Node2D" parent="."]
-position = Vector2(0, -72.865)
+[node name="TextSpawn" type="Node2D" parent="Holder"]
+position = Vector2(0, -73)
 
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="Holder/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

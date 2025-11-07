@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=4 uid="uid://8sqqv55pbmds"]
 
-[ext_resource type="Script" path="res://skrypty/puszka_object.gd" id="1_i633u"]
+[ext_resource type="Script" uid="uid://d1nldyd1w7rku" path="res://skrypty/puszka_object.gd" id="1_i633u"]
 [ext_resource type="Texture2D" uid="uid://cbbvuvr2ivpg6" path="res://assety/modele/puszka_texture.png" id="1_weckn"]
 [ext_resource type="Script" path="res://skrypty/pucha_interact.gd" id="2_gdgtk"]
 [ext_resource type="Script" uid="uid://bwtia7dv6aye0" path="res://skrypty/fall_check.gd" id="4_r6xcc"]
@@ -54,10 +54,11 @@ radius = 0.16796875
 [node name="Puszka" type="RigidBody3D" groups=["piwo"]]
 collision_layer = 3
 collision_mask = 3
+mass = 0.1
 script = ExtResource("1_i633u")
 
 [node name="Cylinder" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.12, 0, 0, 0, 0.12, 0, 0, 0, 0.12, 0, 0, 0)
+transform = Transform3D(0.105, 0, 0, 0, 0.105, 0, 0, 0, 0.105, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gdgtk")
 skeleton = NodePath("")
 

@@ -1,5 +1,5 @@
 extends RigidBody3D
-
+class_name Item
 var przewrocona : bool = false
 
 @onready var interact = $Interact

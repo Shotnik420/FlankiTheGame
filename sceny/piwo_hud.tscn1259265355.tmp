@@ -10,12 +10,19 @@ anchors_preset = 0
 scale = Vector2(1.0018688, 1)
 
 [node name="Line" parent="." instance=ExtResource("1_yimm7")]
-layout_mode = 0
-offset_left = -174.67357
-offset_top = -36.0
-offset_right = -174.67357
-offset_bottom = -36.0
-scale = Vector2(0.85, 0.85)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.4087
+offset_top = -87.0
+offset_right = 220.58777
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
 
 [node name="BeerHold" type="Control" parent="."]
 layout_mode = 1
@@ -24,14 +31,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = 73.86194
+offset_top = -145.0
+offset_right = 394.09677
+offset_bottom = 467.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.64, 0.64)
+scale = Vector2(0.6, 0.6)
 
 [node name="Sprite2D" type="Sprite2D" parent="BeerHold"]
 clip_children = 2
-position = Vector2(350.9067, 6.25)
-scale = Vector2(0.825, 0.825)
+position = Vector2(155.95853, 302.0833)
 texture = ExtResource("2_tijkf")
 
 [node name="Fluid" parent="BeerHold/Sprite2D" instance=ExtResource("2_haycm")]

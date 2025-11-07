@@ -1,9 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://1u7mltbrwr1v"]
+[gd_scene load_steps=20 format=3 uid="uid://1u7mltbrwr1v"]
 
 [ext_resource type="Script" uid="uid://bcdgnphgkgjsd" path="res://sceny/world.gd" id="1_knfkt"]
 [ext_resource type="Texture2D" uid="uid://cqddgnh8mw3ey" path="res://assety/tekstury/dev/Green/texture_02.png" id="2_qp6xn"]
 [ext_resource type="PackedScene" uid="uid://bx7re81noljwh" path="res://sceny/player.tscn" id="2_u8c6x"]
-[ext_resource type="PackedScene" uid="uid://cj5nrjump2gnd" path="res://sceny/kamien.tscn" id="3_hg0tk"]
+[ext_resource type="Texture2D" uid="uid://bibbo12ju6ixg" path="res://assety/tekstury/dev/Dark/texture_02.png" id="3_io22o"]
 [ext_resource type="PackedScene" uid="uid://8sqqv55pbmds" path="res://sceny/puszka.tscn" id="4_w8lm7"]
 [ext_resource type="PackedScene" uid="uid://c8jppjhd4k7b6" path="res://sceny/pause_menu.tscn" id="6_knfkt"]
 [ext_resource type="PackedScene" uid="uid://boikag4di0gmu" path="res://sceny/puszka_point.tscn" id="7_qp6xn"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cepdhdbgt4qin" path="res://sceny/Npc.tscn" id="11_hg0tk"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hg0tk"]
-vertices = PackedVector3Array(-10.265434, 0.39915645, -10.656149, -10.265434, 0.39915645, 10.843851, 10.234566, 0.39915645, 10.843851, 10.234566, 0.39915645, -10.656149)
+vertices = PackedVector3Array(-10.265434, 0.2300309, -10.656149, -10.265434, 0.2300309, 10.843851, 10.234566, 0.2300309, 10.843851, 10.234566, 0.2300309, -10.656149)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qd3ma"]
@@ -37,14 +37,15 @@ ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8lm7"]
+albedo_texture = ExtResource("3_io22o")
+uv1_triplanar = true
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_qd3ma"]
 size = Vector3(21.932617, 3.8719482, 3.2196045)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_knfkt")
-
-[node name="Kamien" parent="." instance=ExtResource("3_hg0tk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3847227, 3.2766755, 1.18173)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_hg0tk")
@@ -62,7 +63,7 @@ size = Vector3(21.591797, 2.8031616, 22.783203)
 material = SubResource("StandardMaterial3D_pk3dx")
 
 [node name="Player" parent="." node_paths=PackedStringArray("world") groups=["Player"] instance=ExtResource("2_u8c6x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6743503, 1.1223133, 3.442459)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.6702375)
 world = NodePath("..")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -73,10 +74,14 @@ transform = Transform3D(1, 0, 0, 0, 0.6457376, 0.7635594, 0, -0.7635594, 0.64573
 light_color = Color(1, 1, 0.93333334, 1)
 shadow_enabled = true
 
+[node name="CSGBox3D2" type="CSGBox3D" parent="." groups=["floor"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35084355, -3.1798878)
+use_collision = true
+size = Vector3(5.0195313, 1, 4.2667847)
+material = SubResource("StandardMaterial3D_w8lm7")
+
 [node name="Puszka" parent="." instance=ExtResource("4_w8lm7")]
-transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, 2.0831952, 0.53045297, 5.039874)
-collision_layer = 131
-collision_mask = 131
+transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, -0.17263162, 0.45389342, -2.9835997)
 
 [node name="PauseLayer" type="CanvasLayer" parent="."]
 layer = 10
@@ -85,7 +90,7 @@ visible = false
 [node name="Pause_menu" parent="PauseLayer" instance=ExtResource("6_knfkt")]
 
 [node name="PuszkaPoint" parent="." instance=ExtResource("7_qp6xn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9193811, 0.39702296, 3.0423763)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39702296, -2.3499777)
 visible = false
 
 [node name="Cylinder" parent="PuszkaPoint" index="1"]
@@ -109,24 +114,17 @@ shape = SubResource("BoxShape3D_qd3ma")
 [node name="NpcFaker" type="Node" parent="."]
 script = ExtResource("10_k4bb6")
 
-[node name="Npc" parent="." node_paths=PackedStringArray("pucha", "puszka_point") instance=ExtResource("11_hg0tk")]
-transform = Transform3D(0.29971403, 0, 0.013096282, 0, 0.3, 0, -0.013096282, 0, 0.29971403, -0.31566143, 1.0880158, -7.6818104)
-pucha = NodePath("../Puszka")
-puszka_point = NodePath("../PuszkaPoint")
+[node name="Npc" parent="." instance=ExtResource("11_hg0tk")]
+transform = Transform3D(0.013096269, 0, -0.29971403, 0, 0.3, 0, 0.29971403, 0, 0.013096269, -0.31566143, 1.0880158, -7.6818104)
 
 [connection signal="mam_puszke" from="Player" to="." method="_on_player_mam_puszke"]
 [connection signal="puszka_przewrocona" from="Puszka" to="Player" method="_on_puszka_puszka_przewrocona"]
 [connection signal="puszka_przewrocona" from="Puszka" to="TeamLine" method="_on_puszka_puszka_przewrocona"]
 [connection signal="puszka_przewrocona" from="Puszka" to="NpcFaker" method="_on_puszka_puszka_przewrocona"]
-[connection signal="puszka_przewrocona" from="Puszka" to="Npc" method="_on_puszka_puszka_przewrocona"]
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="Player" method="sensitivity_change"]
-[connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="Player" method="_on_interact_spawned_pucha"]
 [connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="TeamLine" method="_on_interact_spawned_pucha"]
 [connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="Npc" method="_on_interact_spawned_pucha"]
 [connection signal="body_entered" from="TeamLine" to="TeamLine" method="_on_body_entered"]
-[connection signal="body_exited" from="TeamLine" to="TeamLine" method="_on_body_exited"]
-[connection signal="stop_picie" from="TeamLine" to="Npc" method="_on_team_line_stop_picie"]
-[connection signal="stop" from="Npc" to="Player" method="_on_npc_stop"]
 
 [editable path="Player"]
 [editable path="Player/BeerLayer/Piwo_hud"]

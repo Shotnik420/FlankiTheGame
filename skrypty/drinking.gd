@@ -1,6 +1,6 @@
 extends Module
 
-@export var Line : Node2D
+@export var Line : Control
 
 @export var Fluid : Node2D
 

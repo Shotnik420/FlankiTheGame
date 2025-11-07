@@ -1,20 +1,28 @@
-extends Node2D
+extends Control
 
-@onready var klocek_check : Area2D = $"Area2D"
-@onready var linia : Sprite2D = $linia
+@onready var klocek_check : Area2D = $"Holder/Area2D"
+@onready var linia : Sprite2D = $Holder/linia
 @onready var klocek = preload("res://sceny/kocek.tscn")
 @onready var drinking_text = preload("res://sceny/drinkingText.tscn")
-@onready var text_spawn = $TextSpawn
+@onready var text_spawn = $Holder/TextSpawn
 
-@onready var arr1 = $Sprite2D
-@onready var arr2 = $Sprite2D2
+@onready var arr1 = $Holder/Sprite2D
+@onready var arr2 = $Holder/Sprite2D2
 
-@onready var pucha = $"../Sprite2D"
-@onready var spawn_timer = $SpawnTimer
+@onready var pucha = $"../BeerHold/Sprite2D"
+@onready var spawn_timer = $Holder/SpawnTimer
 
 var arr_tween : Tween 
 
 signal took_sip
+
+var my_scale : Vector2 = Vector2(1.0,1.0)
+
+var pucha_scale : Vector2 = Vector2(1.0,1.0)
+
+func _ready() -> void:
+	my_scale = scale
+	pucha_scale = pucha.scale
 
 func PhysicsUpdate(delta: float) -> void:
 	for kloc in linia.get_children():
@@ -93,10 +101,10 @@ func arrows():
 	await arr_tween.finished
 	arr_tween.kill()
 func tween_self():
-	scale = Vector2(1.05,1.05)
-	pucha.scale = Vector2(0.95,0.95)
+	scale = my_scale + Vector2(0.05,0.05)
+	pucha.scale = pucha_scale + Vector2(0.05,0.05)
 	var self_tween = get_tree().create_tween().set_parallel(true)
-	self_tween.tween_property(self, "scale", Vector2(1.0,1.0),0.5)
-	self_tween.tween_property(pucha, "scale", Vector2(0.9,0.9),0.5)
+	self_tween.tween_property(self, "scale", my_scale,0.5)
+	self_tween.tween_property(pucha, "scale", pucha_scale,0.5)
 	await self_tween.finished
 	self_tween.kill()

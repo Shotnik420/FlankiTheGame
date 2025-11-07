@@ -5,8 +5,10 @@ func interact(player):
 	print("postawiam puszkę")
 	get_parent().hide()
 	var pucha : RigidBody3D = player.current_item.duplicate()
+	pucha.show()
 	get_parent().be_interactable(false)
 	get_tree().root.add_child(pucha)
+	pucha.global_rotation = Vector3.ZERO
 	pucha.freeze = false
 	pucha.global_position = get_parent().mdl.global_position + Vector3(0, 0.1,0)
 	pucha.collision_layer = 3
@@ -17,7 +19,9 @@ func interact(player):
 	pucha.interact.collision_mask = 0
 	player.current_item.queue_free()
 	player.current_item = null
-	spawned_pucha.emit()
+	spawned_pucha.emit(pucha)
+	Global.switch_game_state()
 	await get_tree().create_timer(0.4, false).timeout
 	pucha.axis_lock_angular_x = false
 	pucha.axis_lock_angular_z = false
+	Global.pucha = pucha

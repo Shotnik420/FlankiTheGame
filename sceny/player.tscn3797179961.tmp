@@ -84,18 +84,10 @@ script = SubResource("GDScript_ovlec")
 player = NodePath("..")
 initial_module = NodePath("Throwing")
 
-[node name="Throwing" type="Node" parent="Modules" node_paths=PackedStringArray("eyes", "camera", "cross", "PB")]
+[node name="Throwing" type="Node" parent="Modules" node_paths=PackedStringArray("camera", "cross")]
 script = ExtResource("3_ovlec")
-eyes = NodePath("../../Head/Eyes")
 camera = NodePath("../../Head/Eyes/Camera3D")
 cross = NodePath("../../CrosshairLayer/Cursor")
-ray_check = false
-ray_padding = 0.1
-cursor_follow_speed = 0.1
-cursor_mass = 0.4
-look_speed = 0.5
-overshoot_distance = 3.0
-PB = NodePath("../../CrosshairLayer/ProgressBar")
 
 [node name="Drinking" type="Node" parent="Modules" node_paths=PackedStringArray("Line", "Fluid")]
 script = ExtResource("4_wolqx")
@@ -166,29 +158,13 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ThrowTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 
 [node name="CrosshairLayer" type="CanvasLayer" parent="."]
 layer = 4
-visible = false
 
 [node name="Cursor" type="Control" parent="CrosshairLayer"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -60.0
-offset_right = 60.00003
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(60, 60)
-
-[node name="Holder" type="ColorRect" parent="CrosshairLayer/Cursor"]
-layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -201,9 +177,8 @@ offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(60, 60)
-color = Color(0.79607844, 0.23529412, 0.23529412, 0.13333334)
 
-[node name="TextureRect" type="TextureRect" parent="CrosshairLayer/Cursor/Holder"]
+[node name="TextureRect" type="TextureRect" parent="CrosshairLayer/Cursor"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -219,21 +194,6 @@ grow_vertical = 2
 pivot_offset = Vector2(64, 64)
 texture = ExtResource("8_67act")
 expand_mode = 1
-
-[node name="ProgressBar" type="ProgressBar" parent="CrosshairLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -194.0
-offset_top = -58.0
-offset_right = 194.0
-offset_bottom = -45.0
-grow_horizontal = 2
-grow_vertical = 0
-value = 100.0
-show_percentage = false
 
 [connection signal="timeout" from="ThrowTimer" to="Modules/Throwing" method="_on_throw_timer_timeout"]
 

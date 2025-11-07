@@ -120,11 +120,9 @@ puszka_point = NodePath("../PuszkaPoint")
 [connection signal="puszka_przewrocona" from="Puszka" to="NpcFaker" method="_on_puszka_puszka_przewrocona"]
 [connection signal="puszka_przewrocona" from="Puszka" to="Npc" method="_on_puszka_puszka_przewrocona"]
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="Player" method="sensitivity_change"]
-[connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="Player" method="_on_interact_spawned_pucha"]
 [connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="TeamLine" method="_on_interact_spawned_pucha"]
 [connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="Npc" method="_on_interact_spawned_pucha"]
 [connection signal="body_entered" from="TeamLine" to="TeamLine" method="_on_body_entered"]
-[connection signal="body_exited" from="TeamLine" to="TeamLine" method="_on_body_exited"]
 [connection signal="stop_picie" from="TeamLine" to="Npc" method="_on_team_line_stop_picie"]
 [connection signal="stop" from="Npc" to="Player" method="_on_npc_stop"]
 

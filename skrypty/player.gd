@@ -94,6 +94,7 @@ var current_item
 
 
 
+
 #Maksymalne petardy
 const MAX_PETARDS: int = 3
 #Punkt wyrzutu
@@ -134,6 +135,8 @@ var my_team = 1
 #Sygnał wysyłany gdy podniesiemy puszkę
 signal mam_puszke
 
+
+var camera_update_block : bool = false
 #Uruchamia się raz gdy wszystkie zmienne się załadują
 func _ready() -> void:
 	#Ustawiamy by myszką była zablokowana i można by było się obracać w 3D
@@ -163,7 +166,8 @@ func _physics_process(delta: float) -> void:
 	#Aktualizacja stanu gracza
 	updatePlayerState()
 	#Aktualizacja kiwania kamerą
-	updateCamera(delta)
+	if !camera_update_block:
+		updateCamera(delta)
 	
 	if not is_on_floor():
 		#Dodaj do prędkości spadek w dół
@@ -294,11 +298,11 @@ func updatePlayerState() -> void:
 
 func updatePlayerColShape(_player_state : PlayerState) -> void:
 	if _player_state == PlayerState.CROUCHING or _player_state == PlayerState.IDLE_CROUCH:
-		crouching_collision_shape.disabled = false
-		standing_collision_shape.disabled = true
+		standing_collision_shape.set_deferred("disabled",true)
+		crouching_collision_shape.set_deferred("disabled",false)
 	else:
-		crouching_collision_shape.disabled = true
-		standing_collision_shape.disabled = false
+		crouching_collision_shape.set_deferred("disabled",true)
+		standing_collision_shape.set_deferred("disabled",false)
 
 func updatePlayerSpeed(_player_state : PlayerState) -> void:
 	if _player_state == PlayerState.CROUCHING or _player_state == PlayerState.IDLE_CROUCH:
@@ -351,7 +355,7 @@ func pickUpItem(item):
 	item_holder.add_child(item)
 	current_item = item
 	if item.is_in_group("piwo"):
-		mam_puszke.emit()
+		Global.on_player_mam_puszke()
 		item.przewrocona = true
 		item.position = Vector3.ZERO
 		item.rotation = Vector3.ZERO
@@ -373,7 +377,7 @@ func stop_drink():
 	changeModule(wait_module)
 
 func _on_puszka_puszka_przewrocona() -> void:
-	if  world.whose_turn == my_team:
+	if  Global.current_game_state == Global.Game_State.PlayerThrow:
 		drinking_minigame()
 		show_komunikat("PIJJJJJ ")
 	else:
@@ -384,3 +388,16 @@ func show_komunikat(text):
 	komunikat.show()
 	await get_tree().create_timer(3.5,false).timeout
 	komunikat.hide()
+
+func assign_pucha(prop):
+	current_item = prop
+	if current_item.is_connected("puszka_przewrocona",_on_puszka_puszka_przewrocona):
+		current_item.disconnect("puszka_przewrocona",_on_puszka_puszka_przewrocona)
+	current_item.connect("puszka_przewrocona",_on_puszka_puszka_przewrocona)
+
+func _on_npc_stop() -> void:
+	stop_drink()
+
+
+func _on_interact_spawned_pucha(prop) -> void:
+	assign_pucha(prop)
