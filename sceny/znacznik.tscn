@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://cwyuvu5hdgw1c"]
-
-[node name="znacznik" type="ColorRect"]
-offset_right = 1.0
-offset_bottom = 1.0
-pivot_offset = Vector2(1, 1)
-color = Color(1, 1, 0.4745098, 1)

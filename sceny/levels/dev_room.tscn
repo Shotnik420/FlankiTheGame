@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3 uid="uid://ryvt2hw24mkf"]
+
+[ext_resource type="Texture2D" uid="uid://ck7rq5i8ywg4b" path="res://assety/tekstury/dev/Dark/texture_13.png" id="1_3vfq8"]
+[ext_resource type="PackedScene" uid="uid://1u7mltbrwr1v" path="res://sceny/levels/starter_pack.tscn" id="2_3v1ho"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_3v1ho"]
+vertices = PackedVector3Array(-10.265434, 0.39915645, -10.656149, -10.265434, 0.39915645, 10.843851, 10.234566, 0.39915645, 10.843851, 10.234566, 0.39915645, -10.656149)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_je4nx"]
+albedo_texture = ExtResource("1_3vfq8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4jdkg"]
+albedo_texture = ExtResource("1_3vfq8")
+uv1_triplanar = true
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_36tgc"]
+
+[sub_resource type="Sky" id="Sky_io22o"]
+sky_material = SubResource("ProceduralSkyMaterial_36tgc")
+
+[sub_resource type="Environment" id="Environment_lab8o"]
+background_mode = 2
+sky = SubResource("Sky_io22o")
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+
+[node name="Dev_Room" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_3v1ho")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D" groups=["floor"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003715992, 0.990651, -0.006246805)
+use_collision = true
+size = Vector3(23.023438, 3.0212402, 24.799805)
+material = SubResource("StandardMaterial3D_je4nx")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.38931274, 0)
+operation = 2
+size = Vector3(21.591797, 2.8031616, 22.783203)
+material = SubResource("StandardMaterial3D_4jdkg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lab8o")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6457376, 0.7635594, 0, -0.7635594, 0.6457376, 0, 0, 0)
+light_color = Color(1, 1, 0.93333334, 1)
+shadow_enabled = true
+
+[node name="Starter_pack" parent="." instance=ExtResource("2_3v1ho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1989574, 0.04437971, -0.5653517)

@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://cj5nrjump2gnd"]
+
+[ext_resource type="Script" uid="uid://g77nmojt40ak" path="res://skrypty/game/throwable.gd" id="1_x8ech"]
+[ext_resource type="PackedScene" uid="uid://cc7dfuccpuudw" path="res://sceny/mesh_instances/rock.tscn" id="2_sxrid"]
+[ext_resource type="Shader" uid="uid://mea5q36j3inb" path="res://shadery/ps1model.gdshader" id="3_lajwh"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_875b5"]
+points = PackedVector3Array(0.071218476, 0.0062093786, 0.097178675, -0.03179524, -0.06737595, -0.10520018, 0.056884035, 0.091522545, -0.05032166, -0.07295707, 0.09909512, 0.060947668, -0.09290542, -0.04103682, 0.030563014, 0.057056047, -0.097824775, -0.050506845, 0.12848112, 0.010093471, -0.03587116, -0.04370458, 0.08121823, -0.054612763, 0.034708627, -0.034563582, 0.10933861, 0.034356542, 0.06852956, 0.09686793, -0.10950321, 0.017315963, -0.009520489, 0.0086999945, -0.10032852, 0.027232463, 0.086507514, -0.049280945, 0.068235725, 0.04938201, 0.09870701, 0.01633321, -0.09490662, 0.024754118, 0.057060692, 0.06837551, 0.039882164, 0.105966285, -0.028498936, 0.043512654, -0.08773249, 0.03088456, -0.0640096, -0.09094633, -0.08369335, -0.05656616, -0.024301548, -0.024728991, 0.102844, 0.0795141, 0.0086999945, -0.01947856, 0.1044144, 0.023573013, -0.10532287, 0.0052706394, 0.06337896, 0.086344205, -0.05311302, -0.06244174, 0.10374055, 0.065216556, 0.123692766, -0.0011301488, -0.016981717, 0.04940509, -0.10473575, -0.042836253, 0.01955955, -0.03375141, 0.10672024, 0.023625424, 0.07354379, 0.09863128, -0.021001983, -0.07166944, -0.106117286, 0.090725556, -0.045878, 0.06492084, -0.10336833, -0.023535622, 0.016464254, -0.09083351, 0.043113064, 0.06054285)
+
+[sub_resource type="Gradient" id="Gradient_aaufv"]
+colors = PackedColorArray(0.50534403, 0.5053441, 0.50534403, 1, 0.5370113, 0.5370113, 0.5370113, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hafm0"]
+gradient = SubResource("Gradient_aaufv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yboqp"]
+render_priority = 0
+shader = ExtResource("3_lajwh")
+shader_parameter/affine_mapping = false
+shader_parameter/albedo = SubResource("GradientTexture1D_hafm0")
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.29600001406
+shader_parameter/resolution = Vector2i(320, 240)
+
+[node name="Kamien" type="RigidBody3D" groups=["kamien"]]
+collision_layer = 2
+collision_mask = 3
+continuous_cd = true
+script = ExtResource("1_x8ech")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_875b5")
+
+[node name="rock" parent="." instance=ExtResource("2_sxrid")]
+
+[node name="Cube" parent="rock" index="0"]
+material_override = SubResource("ShaderMaterial_yboqp")
+
+[editable path="rock"]

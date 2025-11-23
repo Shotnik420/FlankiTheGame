@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3l3a60sq23ww"]
+
+[ext_resource type="PackedScene" uid="uid://bbcb5dua7y3xn" path="res://assety/modele/tg/tg.glb" id="1_ns166"]
+
+[node name="tg" instance=ExtResource("1_ns166")]

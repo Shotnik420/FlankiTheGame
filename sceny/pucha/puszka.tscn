@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://8sqqv55pbmds"]
+
+[ext_resource type="Script" uid="uid://d1nldyd1w7rku" path="res://skrypty/game/pucha/puszka_object.gd" id="1_i633u"]
+[ext_resource type="Script" uid="uid://7k8few77t4gq" path="res://skrypty/game/pucha/pucha_interact.gd" id="2_gdgtk"]
+[ext_resource type="PackedScene" uid="uid://wn1nghr7dlyc" path="res://sceny/pucha/pucha_fake.tscn" id="4_6k07c"]
+[ext_resource type="AudioStream" uid="uid://rjd2m5x5s5xi" path="res://assety/dzwieki/puszka/hard_can_drop1.wav" id="4_ec053"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ec053"]
+friction = 0.61
+rough = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_weckn"]
+height = 0.539
+radius = 0.11669922
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ec053"]
+height = 0.539
+radius = 0.15673828
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_i633u"]
+height = 0.09588623
+radius = 0.16796875
+
+[node name="Puszka" type="RigidBody3D" groups=["piwo"]]
+collision_layer = 3
+collision_mask = 3
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_ec053")
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("1_i633u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00036621094, 0)
+shape = SubResource("CylinderShape3D_weckn")
+
+[node name="Interact" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("2_gdgtk")
+display_name = &"podniesc puszke"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interact"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00036621094, 0)
+shape = SubResource("CylinderShape3D_ec053")
+
+[node name="FallCheck" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallCheck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25094604, 0)
+shape = SubResource("CylinderShape3D_i633u")
+
+[node name="PuchaFake" parent="." instance=ExtResource("4_6k07c")]
+transform = Transform3D(1.425, 0, 0, 0, 1.425, 0, 0, 0, 1.425, 0, -0.25792778, 0)
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_ec053")
+volume_db = -8.276
+unit_size = 5.7
+max_db = -3.336
+
+[node name="Sound2" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_ec053")
+volume_db = -8.276
+unit_size = 5.7
+max_db = -3.336
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+height = 0.4
+radius = 0.3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="FallCheck" to="." method="_on_fall_check_body_entered"]

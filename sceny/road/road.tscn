@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://800upcl66j72"]
+
+[ext_resource type="Texture2D" uid="uid://w0jc0qgvcj8q" path="res://assety/tekstury/terrain/DefaultMaterial_BaseColor.png" id="1_3ai38"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7ekon"]
+albedo_texture = ExtResource("1_3ai38")
+uv1_triplanar = true
+uv2_triplanar = true
+
+[node name="Road" type="Path3D"]
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+polygon = PackedVector2Array(0, 0, 0, 0.1, 5, 0.1, 5, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.29
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 0.48
+path_joined = false
+material = SubResource("StandardMaterial3D_7ekon")

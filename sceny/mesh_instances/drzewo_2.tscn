@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcn57vbov5ngv"]
+
+[ext_resource type="PackedScene" uid="uid://by4eu0tn8rejs" path="res://assety/modele/drzewo/drzewo2.glb" id="1_e8cw7"]
+[ext_resource type="ArrayMesh" uid="uid://dhiid6glwibyt" path="res://assety/modele/drzewo/tree_sway.mesh" id="2_kb2o5"]
+
+[node name="drzewo2" instance=ExtResource("1_e8cw7")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(0.73959994, -1.1874363e-09, 0.70241857, -0.0052225064, 1.0199717, 0.005498953, -0.70239913, -0.0075837364, 0.73957956, 1.9524782, 18.77839, 6.2590384)
+extra_cull_margin = 15586.55
+mesh = ExtResource("2_kb2o5")

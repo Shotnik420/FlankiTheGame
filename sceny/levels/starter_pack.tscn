@@ -1,0 +1,87 @@
+[gd_scene load_steps=11 format=3 uid="uid://1u7mltbrwr1v"]
+
+[ext_resource type="Script" uid="uid://bcdgnphgkgjsd" path="res://skrypty/world.gd" id="1_wntq4"]
+[ext_resource type="PackedScene" uid="uid://bx7re81noljwh" path="res://sceny/player.tscn" id="3_mw6og"]
+[ext_resource type="PackedScene" uid="uid://8sqqv55pbmds" path="res://sceny/pucha/puszka.tscn" id="4_ptoqg"]
+[ext_resource type="PackedScene" uid="uid://c8jppjhd4k7b6" path="res://sceny/hud/pause_menu.tscn" id="5_nunnx"]
+[ext_resource type="PackedScene" uid="uid://boikag4di0gmu" path="res://sceny/pucha/puszka_point.tscn" id="6_hifl0"]
+[ext_resource type="PackedScene" uid="uid://6it2f1mix2s8" path="res://sceny/hud/debug_window.tscn" id="7_uk41p"]
+[ext_resource type="Script" uid="uid://buk2xkcthhtgu" path="res://skrypty/game/team_line.gd" id="8_m46xs"]
+[ext_resource type="Script" uid="uid://cgev6vtqo2btv" path="res://skrypty/npc/npc_faker.gd" id="9_uk6bb"]
+[ext_resource type="PackedScene" uid="uid://cepdhdbgt4qin" path="res://sceny/npc/Npc.tscn" id="10_awr5d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qd3ma"]
+size = Vector3(21.932617, 3.8719482, 3.2196045)
+
+[node name="Starter_pack" type="Node3D"]
+script = ExtResource("1_wntq4")
+
+[node name="PlayerTeam" type="Node3D" parent="."]
+
+[node name="Player" parent="PlayerTeam" node_paths=PackedStringArray("world") groups=["Player"] instance=ExtResource("3_mw6og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4765897, 1.1223133, 8.027158)
+world = NodePath("../..")
+
+[node name="Puszka" parent="." instance=ExtResource("4_ptoqg")]
+transform = Transform3D(-0.25881913, 0, 0.9659257, 0, 1, 0, -0.96592593, 0, -0.25881907, 2.0831952, 0.53045297, 5.039874)
+collision_layer = 131
+collision_mask = 131
+
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+layer = 100
+visible = false
+
+[node name="Pause_menu" parent="PauseLayer" instance=ExtResource("5_nunnx")]
+
+[node name="PuszkaPoint" parent="." instance=ExtResource("6_hifl0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9193811, 0.2643118, 3.0423763)
+visible = false
+
+[node name="Cylinder" parent="PuszkaPoint" index="1"]
+surface_material_override/0 = null
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+layer = 8
+
+[node name="DebugWindow" parent="DebugLayer" node_paths=PackedStringArray("player") instance=ExtResource("7_uk41p")]
+visible = false
+player = NodePath("../../PlayerTeam/Player")
+
+[node name="TeamLine" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.902502)
+script = ExtResource("8_m46xs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TeamLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4359741, 1.1098022)
+shape = SubResource("BoxShape3D_qd3ma")
+
+[node name="NpcFaker" type="Node" parent="."]
+script = ExtResource("9_uk6bb")
+
+[node name="NpcTeam" type="Node3D" parent="."]
+
+[node name="Npc" parent="NpcTeam" node_paths=PackedStringArray("pucha", "puszka_point") instance=ExtResource("10_awr5d")]
+transform = Transform3D(0.29971403, 0, 0.013096282, 0, 0.3, 0, -0.013096282, 0, 0.29971403, -0.31566143, 1.0880158, -7.6818104)
+pucha = NodePath("../../Puszka")
+puszka_point = NodePath("../../PuszkaPoint")
+
+[node name="Npc2" parent="NpcTeam" node_paths=PackedStringArray("pucha", "puszka_point") instance=ExtResource("10_awr5d")]
+transform = Transform3D(0.29971403, 0, 0.013096282, 0, 0.3, 0, -0.013096282, 0, 0.29971403, 1.4717543, 1.0880158, -7.759913)
+pucha = NodePath("../../Puszka")
+puszka_point = NodePath("../../PuszkaPoint")
+
+[node name="Npc3" parent="NpcTeam" node_paths=PackedStringArray("pucha", "puszka_point") instance=ExtResource("10_awr5d")]
+transform = Transform3D(0.29971403, 0, 0.013096282, 0, 0.3, 0, -0.013096282, 0, 0.29971403, -1.9771068, 1.0880158, -7.609212)
+pucha = NodePath("../../Puszka")
+puszka_point = NodePath("../../PuszkaPoint")
+
+[connection signal="took_sip" from="PlayerTeam/Player/BeerLayer/Piwo_hud/Line" to="PlayerTeam/Player/Modules/Drinking" method="_on_line_took_sip"]
+[connection signal="VELO" from="PauseLayer/Pause_menu" to="PlayerTeam/Player" method="sensitivity_change"]
+[connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="TeamLine" method="_on_interact_spawned_pucha"]
+[connection signal="body_entered" from="TeamLine" to="TeamLine" method="_on_body_entered"]
+[connection signal="body_exited" from="TeamLine" to="TeamLine" method="_on_body_exited"]
+[connection signal="stop_picie" from="TeamLine" to="NpcTeam/Npc" method="_on_team_line_stop_picie"]
+
+[editable path="PlayerTeam/Player"]
+[editable path="PlayerTeam/Player/BeerLayer/Piwo_hud"]
+[editable path="PuszkaPoint"]
