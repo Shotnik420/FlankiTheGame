@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=4 uid="uid://h7o3ntegp82i"]
+
+[ext_resource type="Texture2D" uid="uid://bnxlkyvul52kq" path="res://assety/modele/foliage/tuja_test_tuja.png" id="1_v2j85"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2dlfp"]
+resource_name = "tuja"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_v2j85")
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_t3t74"]
+_surfaces = [{
+"aabb": AABB(-2.1154177, -2.6424944, -1.9485749, 4.2308354, 5.284989, 3.8971496),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0A"),
+"name": "tuja",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("/38AAP//AAD/f///AAAAAP9//////wAA/38AAAAAAADw1wAAlScAAA4o/v9p2AAA8Nf+/5UnAAAOKAAAadgAAP//AADOkwAAAAD+/zBsAAD///7/zpMAAAAAAAAwbAAAjNQAAC3cAAByK/7/0SMAAIzU/v8t3AAAcisAANEjAAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_1hm77"]
+resource_name = "tuja_test_Plane_002"
+_surfaces = [{
+"aabb": AABB(-2.1154177, -2.6424944, -1.9485749, 4.2308354, 5.284989, 3.8971496),
+"attribute_data": PackedByteArray("/////3J/dob//3aGcn////////9yf3aG//92hnJ/////////cn92hv//doZyf////////3J/dob//3aGcn///w=="),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0A"),
+"material": SubResource("StandardMaterial3D_2dlfp"),
+"name": "tuja",
+"primitive": 3,
+"uv_scale": Vector4(1.9920975, 1.9701195, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("/38AAP///7//f///AAD/v/9///////+//38AAAAA/7/w1wAAlSdvng4o/v9p2G+e8Nf+/5Unb54OKAAAadhvnv//AADOk8SFAAD+/zBsxIX///7/zpPEhQAAAAAwbMSFjNQAAC3cFaByK/7/0SMVoIzU/v8t3BWgcisAANEjFaD/f////3////9/////f////38AAP9/AAD/fwAA/38AAP9/////f////3////9/////f////3////9/////f///")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_t3t74")
+
+[node name="Tuja" type="MeshInstance3D"]
+transform = Transform3D(0.9803313, 0, 0, 0, 1, 0, 0, 0, 0.9875365, 0, 2.5557806, 0)
+mesh = SubResource("ArrayMesh_1hm77")
+skeleton = NodePath("")

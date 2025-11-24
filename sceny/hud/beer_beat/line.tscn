@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://g3up542hbg7g"]
+
+[ext_resource type="Script" uid="uid://cu2wnxm8xm8if" path="res://skrypty/beer_beat/beat.gd" id="1_gyict"]
+[ext_resource type="Shader" uid="uid://dpv43s5b8vthg" path="res://shadery/sprite_outline.gdshader" id="2_ivwke"]
+[ext_resource type="Texture2D" uid="uid://d1pervi6gm0t2" path="res://assety/tekstury/hud/line.png" id="2_xnnuc"]
+[ext_resource type="Texture2D" uid="uid://b38w1bitessme" path="res://assety/tekstury/hud/arrow.png" id="3_ivwke"]
+[ext_resource type="AudioStream" uid="uid://do1v5vswknn61" path="res://assety/dzwieki/player/sip.wav" id="4_xnnuc"]
+[ext_resource type="AudioStream" uid="uid://ohadhv1vd7b4" path="res://assety/dzwieki/player/klick11.wav" id="6_lyeqm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2kp4a"]
+shader = ExtResource("2_ivwke")
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2kps"]
+shader = ExtResource("2_ivwke")
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lyeqm"]
+shader = ExtResource("2_ivwke")
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 3.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rwfve"]
+size = Vector2(26, 70)
+
+[node name="Line" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_gyict")
+
+[node name="Holder" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Holder"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -24.0
+offset_right = 16.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8509804, 0.8509804, 0.8509804, 0.58431375)
+
+[node name="Sprite2D" type="Sprite2D" parent="Holder"]
+material = SubResource("ShaderMaterial_2kp4a")
+position = Vector2(0, -60)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_ivwke")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Holder"]
+material = SubResource("ShaderMaterial_i2kps")
+position = Vector2(0, 60)
+scale = Vector2(0.75, -0.75)
+texture = ExtResource("3_ivwke")
+
+[node name="linia" type="Sprite2D" parent="Holder"]
+material = SubResource("ShaderMaterial_lyeqm")
+position = Vector2(0, -0.13500214)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xnnuc")
+
+[node name="Area2D" type="Area2D" parent="Holder"]
+position = Vector2(0, -0.13500214)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Area2D"]
+shape = SubResource("RectangleShape2D_rwfve")
+
+[node name="SpawnTimer" type="Timer" parent="Holder"]
+
+[node name="TextSpawn" type="Node2D" parent="Holder"]
+position = Vector2(0, -73)
+
+[node name="audio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_xnnuc")
+volume_db = -5.518
+pitch_scale = 0.81
+bus = &"Sounds"
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_lyeqm")
+volume_db = -1.72
+pitch_scale = 0.93
+mix_target = 1
+bus = &"Beat"
+
+[connection signal="timeout" from="Holder/SpawnTimer" to="." method="_on_spawn_timer_timeout"]

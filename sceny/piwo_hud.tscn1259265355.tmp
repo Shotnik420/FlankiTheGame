@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdjf1frbujfxu"]
+
+[ext_resource type="PackedScene" uid="uid://g3up542hbg7g" path="res://sceny/line.tscn" id="1_yimm7"]
+[ext_resource type="PackedScene" uid="uid://cj7wm50loassy" path="res://sceny/Fluid.tscn" id="2_haycm"]
+[ext_resource type="Texture2D" uid="uid://bmdpd7lh5mpk8" path="res://assety/tekstury/piwo/puszka_ph.png" id="2_tijkf"]
+
+[node name="Piwo_hud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(1.0018688, 1)
+
+[node name="Line" parent="." instance=ExtResource("1_yimm7")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.4087
+offset_top = -87.0
+offset_right = 220.58777
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+
+[node name="BeerHold" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 73.86194
+offset_top = -145.0
+offset_right = 394.09677
+offset_bottom = 467.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="BeerHold"]
+clip_children = 2
+position = Vector2(155.95853, 302.0833)
+texture = ExtResource("2_tijkf")
+
+[node name="Fluid" parent="BeerHold/Sprite2D" instance=ExtResource("2_haycm")]
+position = Vector2(-166.98584, -254.8248)
+scale = Vector2(0.422, 0.422)
+distance_between_springs = 60
+spring_number = 14
+
+[connection signal="took_sip" from="Line" to="BeerHold/Sprite2D/Fluid" method="_on_line_took_sip"]

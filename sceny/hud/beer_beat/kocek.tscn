@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckagc88y00waw"]
+
+[ext_resource type="Texture2D" uid="uid://c1i3vik5jud7e" path="res://assety/tekstury/hud/klockek.png" id="1_gt0xx"]
+[ext_resource type="Script" uid="uid://cgpkxr3ruhsqb" path="res://skrypty/hud/kocek.gd" id="2_mc134"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gt0xx"]
+size = Vector2(80, 131.818)
+
+[node name="kocek" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(0.25, 0.313)
+script = ExtResource("2_mc134")
+
+[node name="shadow" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 0.24313726, 0.6392157)
+scale = Vector2(1.4399999, 1.0557022)
+texture = ExtResource("1_gt0xx")
+
+[node name="kreska" type="Sprite2D" parent="."]
+texture = ExtResource("1_gt0xx")
+
+[node name="KlockArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KlockArea"]
+shape = SubResource("RectangleShape2D_gt0xx")

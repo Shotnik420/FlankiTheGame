@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://cdjf1frbujfxu"]
+
+[ext_resource type="PackedScene" uid="uid://g3up542hbg7g" path="res://sceny/hud/beer_beat/line.tscn" id="1_l2cvn"]
+[ext_resource type="Shader" uid="uid://dpv43s5b8vthg" path="res://shadery/sprite_outline.gdshader" id="2_h5l4r"]
+[ext_resource type="Texture2D" uid="uid://ctd4jht4qaybw" path="res://assety/tekstury/hud/puszk.png" id="2_l2cvn"]
+[ext_resource type="PackedScene" uid="uid://cj7wm50loassy" path="res://sceny/hud/beer_beat/Fluid.tscn" id="3_wmmjw"]
+[ext_resource type="Texture2D" uid="uid://37wk0ii1uhhn" path="res://assety/tekstury/hud/puszk_outline.png" id="5_wmmjw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wmmjw"]
+shader = ExtResource("2_h5l4r")
+shader_parameter/allow_out_of_bounds = true
+shader_parameter/outline_thickness = 4.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[node name="Piwo_hud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(1.0018688, 1)
+
+[node name="Line" parent="." instance=ExtResource("1_l2cvn")]
+layout_mode = 0
+offset_left = -103.806
+offset_right = -103.806
+
+[node name="BeerHold" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.64, 0.64)
+
+[node name="Sprite2D" type="Sprite2D" parent="BeerHold"]
+clip_children = 2
+material = SubResource("ShaderMaterial_wmmjw")
+position = Vector2(350.9067, 6.25)
+scale = Vector2(0.965, 0.965)
+texture = ExtResource("2_l2cvn")
+
+[node name="Fluid" parent="BeerHold/Sprite2D" instance=ExtResource("3_wmmjw")]
+position = Vector2(-166.98584, -254.8248)
+scale = Vector2(0.422, 0.422)
+distance_between_springs = 60
+spring_number = 14
+
+[node name="Sprite2D" type="Sprite2D" parent="BeerHold/Sprite2D"]
+texture = ExtResource("5_wmmjw")
+
+[connection signal="took_sip" from="Line" to="BeerHold/Sprite2D/Fluid" method="_on_line_took_sip"]
