@@ -22,9 +22,14 @@ func end_picie():
 func PhysicsUpdate(_delta: float) -> void:
 	if !ended:
 		drink_timer -= 1
-		if drink_timer == 0:
-			take_sip()
-			drink_timer = drink_max
+		if beer_amount > 0:
+			if drink_timer == 0:
+				take_sip()
+				drink_timer = drink_max
+		else:
+			npc.won = true
+			Global.remove_npc(npc)
+			Transitioned.emit(self, "Ended")
 
 func take_sip():
 	beer_amount -= 30 + randi_range(-10,10)

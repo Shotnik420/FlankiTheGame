@@ -75,6 +75,22 @@ transform = Transform3D(0.29971403, 0, 0.013096282, 0, 0.3, 0, -0.013096282, 0, 
 pucha = NodePath("../../Puszka")
 puszka_point = NodePath("../../PuszkaPoint")
 
+[node name="NpcWinnerPoints" type="Node3D" parent="."]
+
+[node name="Point" type="Node3D" parent="NpcWinnerPoints"]
+
+[node name="Point2" type="Node3D" parent="NpcWinnerPoints"]
+
+[node name="Point3" type="Node3D" parent="NpcWinnerPoints"]
+
+[node name="PlayerWinnerPoints" type="Node3D" parent="."]
+
+[node name="Point" type="Node3D" parent="PlayerWinnerPoints"]
+
+[node name="Point2" type="Node3D" parent="PlayerWinnerPoints"]
+
+[node name="Point3" type="Node3D" parent="PlayerWinnerPoints"]
+
 [connection signal="took_sip" from="PlayerTeam/Player/BeerLayer/Piwo_hud/Line" to="PlayerTeam/Player/Modules/Drinking" method="_on_line_took_sip"]
 [connection signal="VELO" from="PauseLayer/Pause_menu" to="PlayerTeam/Player" method="sensitivity_change"]
 [connection signal="spawned_pucha" from="PuszkaPoint/Interact" to="TeamLine" method="_on_interact_spawned_pucha"]

@@ -44,8 +44,9 @@ var pucha_skin = "zyniec"
 @onready var pucha_im_holding =$chop/Armature/Skeleton3D/BoneAttachment3D/Pucha_holder
 var pucha_im_holding_visible : bool
 
+var my_winner_point : Node3D
 
-
+var won : bool = false
 
 func _ready() -> void:
 	spawn_point = global_position
@@ -282,3 +283,16 @@ func taunt_hurry_up():
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	velocity = safe_velocity
 	move_and_slide()
+
+func game_lost():
+	state_machine.current_state.Transitioned.emit(state_machine.current_state,"Wait")
+	goforpucha = false
+	can_drink = false
+	can_walk = false
+	has_puszka = false
+func game_won():
+	state_machine.current_state.Transitioned.emit(state_machine.current_state,"Wait")
+	goforpucha = false
+	can_drink = false
+	can_walk = false
+	has_puszka = false

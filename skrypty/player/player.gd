@@ -136,6 +136,8 @@ var my_team = 1
 var camera_update_block : bool = false
 
 var mouse_input_dir : Vector2 = Vector2.ZERO
+var my_winner_point : Node3D
+
 
 func _ready() -> void:
 	Global.player = self
@@ -413,3 +415,16 @@ func camera_sipping():
 	move_tween.tween_property(camera, "fov", camera.fov-0.5,0.6)
 	await move_tween.finished
 	move_tween.kill()
+
+func finished_beer():
+	wait()
+	Global.remove_npc(self)
+	
+
+func game_lost():
+	current_module = running_module
+	show_komunikat("Przegrales.....")
+	
+func game_won():
+	current_module = running_module
+	show_komunikat("Wygrales!!!!")

@@ -16,8 +16,11 @@ func PhysicsUpdate(delta: float) -> void:
 		npc.set_target_pos(npc.pucha.global_position)
 	elif npc.has_puszka:
 		npc.set_target_pos(npc.puszka_point.global_position)
+	elif npc.won:
+		npc.set_target_pos(npc.my_winner_point.global_position)
 	elif !npc.goforpucha:
 		npc.set_target_pos(npc.spawn_point)
+		
 	if npc.can_walk:
 		npc.walk()
 

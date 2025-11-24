@@ -16,6 +16,8 @@ func Enter():
 func PhysicsUpdate(delta: float) -> void:
 	Line.PhysicsUpdate(delta)
 	Fluid.PhysicsUpdate(delta)
+	if Fluid.position.y > 285:
+		player.finished_beer()
 
 func Exit():
 	Line.spawn_timer.stop()
